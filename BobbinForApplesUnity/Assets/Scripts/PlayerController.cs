@@ -7,12 +7,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float strokeForce = 50f;
     [SerializeField] private float strokeTorque = 100f;
     [SerializeField] private float kickForce = 150f;
+    [SerializeField] private float pushOffForce = 100f;
 
     [Header("2D Plane Settings")]
     [SerializeField] private Vector3 planeNormal = Vector3.forward;
 
     private Rigidbody rigidBody;
     private Keyboard keyboard;
+
+    private Vector3 leftSurfaceNormal = Vector3.zero;
+    private Vector3 rightSurfaceNormal = Vector3.zero;
+    private bool isTouchingLeftSurface = false;
+    private bool isTouchingRightSurface = false;
 
     private void Awake()
     {
@@ -65,6 +71,36 @@ public class PlayerController : MonoBehaviour
         HandleKick();
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Vector3 contactNormal = contact.normal;
+            float dotLeft = Vector3.Dot(contactNormal, transform.right);
+            float dotRight = Vector3.Dot(contactNormal, -transform.right);
+
+            if (dotLeft > 0.5f)
+            {
+                isTouchingLeftSurface = true;
+                leftSurfaceNormal = contactNormal;
+            }
+
+            if (dotRight > 0.5f)
+            {
+                isTouchingRightSurface = true;
+                rightSurfaceNormal = contactNormal;
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isTouchingLeftSurface = false;
+        isTouchingRightSurface = false;
+        leftSurfaceNormal = Vector3.zero;
+        rightSurfaceNormal = Vector3.zero;
+    }
+
     private void HandleArmStrokes()
     {
         bool leftArmPressed = keyboard.aKey.wasPressedThisFrame;
@@ -89,6 +125,11 @@ public class PlayerController : MonoBehaviour
         Vector3 forwardDirection = transform.up;
         rigidBody.AddForce(forwardDirection * strokeForce, ForceMode.Impulse);
         rigidBody.AddTorque(GetTorqueAxis() * strokeTorque, ForceMode.Impulse);
+
+        if (isTouchingLeftSurface)
+        {
+            rigidBody.AddForce(leftSurfaceNormal * pushOffForce, ForceMode.Impulse);
+        }
     }
 
     private void ApplyRightStroke()
@@ -96,6 +137,11 @@ public class PlayerController : MonoBehaviour
         Vector3 forwardDirection = transform.up;
         rigidBody.AddForce(forwardDirection * strokeForce, ForceMode.Impulse);
         rigidBody.AddTorque(GetTorqueAxis() * -strokeTorque, ForceMode.Impulse);
+
+        if (isTouchingRightSurface)
+        {
+            rigidBody.AddForce(rightSurfaceNormal * pushOffForce, ForceMode.Impulse);
+        }
     }
 
     private void ApplyForwardStroke()
