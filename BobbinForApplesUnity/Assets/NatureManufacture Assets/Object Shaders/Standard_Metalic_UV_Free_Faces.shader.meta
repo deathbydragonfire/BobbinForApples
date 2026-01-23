@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 11261da6e0158314eb2d49d96a265199
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 101721
+  packageName: Advanced Rock Pack 2.0
+  packageVersion: 2.9.7
+  assetPath: Assets/NatureManufacture Assets/Object Shaders/Standard_Metalic_UV_Free_Faces.shader
+  uploadId: 751947

@@ -55,6 +55,20 @@
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Triplanar_Cover_Specular.shader" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Metalic_UV_Free_Faces.shader" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Metalic_Snow.shader" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Full_Triplanar_Cover.shader" />
+    <None Include="Assets\NatureManufacture Assets\Advanced Rock Pack\HD and URP Support Packs Rocks\Readme about rendering piplines support.txt" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Specular_Snow.shader" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Top_Cover_Specular.shader" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Triplanar_Cover.shader" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Metalic_Snow CutOut.shader" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_indirect.cginc" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Top_Cover.shader" />
+    <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Specular_Snow CutOut.shader" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\6000.3.4f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
       <Private>False</Private>

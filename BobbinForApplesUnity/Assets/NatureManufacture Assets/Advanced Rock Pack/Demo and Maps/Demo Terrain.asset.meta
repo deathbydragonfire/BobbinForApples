@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 151adec0a2269af4fa0af04c595d83d8
+timeCreated: 1506937314
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 15600000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 101721
+  packageName: Advanced Rock Pack 2.0
+  packageVersion: 2.9.7
+  assetPath: Assets/NatureManufacture Assets/Advanced Rock Pack/Demo and Maps/Demo
+    Terrain.asset
+  uploadId: 751947

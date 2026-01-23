@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 62e669f7154185a4fb6c180e4bd4af00
+timeCreated: 1501674022
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 101721
+  packageName: Advanced Rock Pack 2.0
+  packageVersion: 2.9.7
+  assetPath: Assets/NatureManufacture Assets/Advanced Rock Pack/Rocks/Materials/M_Atlas_Small_Rocks_01_Litter.mat
+  uploadId: 751947
