@@ -135,6 +135,13 @@ MonoBehaviour:
   kickForce: 4
   pushOffForce: 10
   planeNormal: {x: 0, y: 0, z: 1}
+  animator: {fileID: 5039042008172402525}
+  leftArmAnimationName: Left_Arm_Swing
+  rightArmAnimationName: Right_Arm_Swing
+  kickAnimationName: Kick
+  leftArmLayer: 1
+  rightArmLayer: 2
+  kickLayer: 3
 --- !u!54 &3026209644961932035
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -12,6 +12,15 @@ public class PlayerController : MonoBehaviour
     [Header("2D Plane Settings")]
     [SerializeField] private Vector3 planeNormal = Vector3.forward;
 
+    [Header("Animation Settings")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string leftArmAnimationName = "LeftArmStroke";
+    [SerializeField] private string rightArmAnimationName = "RightArmStroke";
+    [SerializeField] private string kickAnimationName = "Kick";
+    [SerializeField] private int leftArmLayer = 1;
+    [SerializeField] private int rightArmLayer = 2;
+    [SerializeField] private int kickLayer = 3;
+
     private Rigidbody rigidBody;
     private Keyboard keyboard;
 
@@ -31,6 +40,15 @@ public class PlayerController : MonoBehaviour
         else
         {
             ConfigureRigidbodyFor2DPlane();
+        }
+
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+            if (animator == null)
+            {
+                Debug.LogWarning("PlayerController: No Animator found. Animations will not play.");
+            }
         }
         
         keyboard = Keyboard.current;
@@ -124,30 +142,37 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 forwardDirection = transform.up;
         rigidBody.AddForce(forwardDirection * strokeForce, ForceMode.Impulse);
-        rigidBody.AddTorque(GetTorqueAxis() * strokeTorque, ForceMode.Impulse);
+        rigidBody.AddTorque(GetTorqueAxis() * -strokeTorque, ForceMode.Impulse);
 
         if (isTouchingLeftSurface)
         {
             rigidBody.AddForce(leftSurfaceNormal * pushOffForce, ForceMode.Impulse);
         }
+
+        PlayAnimation(leftArmAnimationName, leftArmLayer);
     }
 
     private void ApplyRightStroke()
     {
         Vector3 forwardDirection = transform.up;
         rigidBody.AddForce(forwardDirection * strokeForce, ForceMode.Impulse);
-        rigidBody.AddTorque(GetTorqueAxis() * -strokeTorque, ForceMode.Impulse);
+        rigidBody.AddTorque(GetTorqueAxis() * strokeTorque, ForceMode.Impulse);
 
         if (isTouchingRightSurface)
         {
             rigidBody.AddForce(rightSurfaceNormal * pushOffForce, ForceMode.Impulse);
         }
+
+        PlayAnimation(rightArmAnimationName, rightArmLayer);
     }
 
     private void ApplyForwardStroke()
     {
         Vector3 forwardDirection = transform.up;
         rigidBody.AddForce(forwardDirection * strokeForce * 2f, ForceMode.Impulse);
+
+        PlayAnimation(leftArmAnimationName, leftArmLayer);
+        PlayAnimation(rightArmAnimationName, rightArmLayer);
     }
 
     private void HandleKick()
@@ -156,6 +181,16 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 forwardDirection = transform.up;
             rigidBody.AddForce(forwardDirection * kickForce, ForceMode.Impulse);
+
+            PlayAnimation(kickAnimationName, kickLayer);
+        }
+    }
+
+    private void PlayAnimation(string animationName, int layer)
+    {
+        if (animator != null)
+        {
+            animator.Play(animationName, layer, 0f);
         }
     }
 
