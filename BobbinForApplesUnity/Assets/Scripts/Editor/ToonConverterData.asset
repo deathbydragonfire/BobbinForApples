@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d7748e90152974c91087d2bef39b3c, type: 3}
+  m_Name: ToonConverterData
+  m_EditorClassIdentifier: Assembly-CSharp-Editor::ToonConverterData
+  mappings:
+  - prefab: {fileID: 1385236754993132, guid: be78274b13364c348aa74a9b81747357, type: 3}
+    originalMaterials:
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 51c4f547202d1a34292dd86a509b0845, type: 2}
+      rendererPath: SM_Big_Rock_02_LOD0
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 51c4f547202d1a34292dd86a509b0845, type: 2}
+      rendererPath: SM_Big_Rock_02_LOD1
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 51c4f547202d1a34292dd86a509b0845, type: 2}
+      rendererPath: SM_Big_Rock_02_LOD2
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 51c4f547202d1a34292dd86a509b0845, type: 2}
+      rendererPath: SM_Big_Rock_02_LOD3
+    toonMaterials:
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: bd6e9dd9f5777a64a95817807cf26e2e, type: 2}
+      rendererPath: SM_Big_Rock_02_LOD0
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: dcc69bf9aa1477241892de01839a75b9, type: 2}
+      rendererPath: SM_Big_Rock_02_LOD1
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 5befe6ff592614b4b80c2e6b6328b991, type: 2}
+      rendererPath: SM_Big_Rock_02_LOD2
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 8415cf88c0a846043b1d0c35a101ab9f, type: 2}
+      rendererPath: SM_Big_Rock_02_LOD3
+    isConverted: 0
+  - prefab: {fileID: 1166217304405434, guid: 0455529d4f547da40800c0bf55017667, type: 3}
+    originalMaterials:
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 2f3e598432b2c8349b9d5473dd872b3b, type: 2}
+      rendererPath: SM_Big_Rock_03_LOD0
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 2f3e598432b2c8349b9d5473dd872b3b, type: 2}
+      rendererPath: SM_Big_Rock_03_LOD1
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 2f3e598432b2c8349b9d5473dd872b3b, type: 2}
+      rendererPath: SM_Big_Rock_03_LOD2
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 2f3e598432b2c8349b9d5473dd872b3b, type: 2}
+      rendererPath: SM_Big_Rock_03_LOD3
+    toonMaterials:
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: f31f1404455298d499460cf53212dc68, type: 2}
+      rendererPath: SM_Big_Rock_03_LOD0
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: dbd2f52b4b12a824080f0983d595fa59, type: 2}
+      rendererPath: SM_Big_Rock_03_LOD1
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 0abd501c2f9ca434f80915f34b727461, type: 2}
+      rendererPath: SM_Big_Rock_03_LOD2
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 218b4a7a77cd72b4e8745e3eb108b779, type: 2}
+      rendererPath: SM_Big_Rock_03_LOD3
+    isConverted: 0
+  - prefab: {fileID: 1626238087995608, guid: b16b111c4046d7c4589664ba40039a9f, type: 3}
+    originalMaterials:
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 561f82748d75e9e4f879e4468bbac509, type: 2}
+      rendererPath: SM_Middle_Rock_02_LOD0
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: b901516bbb97fe244ad2c0fd164ff22d, type: 2}
+      rendererPath: SM_Middle_Rock_02_LOD1
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 8fb49e72875a2224e971f1fa6f48cf34, type: 2}
+      rendererPath: SM_Middle_Rock_02_LOD2
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 26347946d2f22de46855625ac10882da, type: 2}
+      rendererPath: SM_Middle_Rock_02_LOD3
+    toonMaterials:
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: f84c329e38320b54f8beaca32726e43e, type: 2}
+      rendererPath: SM_Middle_Rock_02_LOD0
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 7206e3eee6a609e46a69cb3400b63622, type: 2}
+      rendererPath: SM_Middle_Rock_02_LOD1
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 7bdfda6aab923fa4e85e37fda942b5a2, type: 2}
+      rendererPath: SM_Middle_Rock_02_LOD2
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 14f833d1cdb80fe488e3519b5e37ee55, type: 2}
+      rendererPath: SM_Middle_Rock_02_LOD3
+    isConverted: 0
+  - prefab: {fileID: 1106182366806574, guid: 9d05df69ef917f749a3c524c2d742ed9, type: 3}
+    originalMaterials:
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 501261e512c22b14a8ac380ac7074b44, type: 2}
+      rendererPath: SM_Big_Rock_01_LOD0
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 501261e512c22b14a8ac380ac7074b44, type: 2}
+      rendererPath: SM_Big_Rock_01_LOD1
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 501261e512c22b14a8ac380ac7074b44, type: 2}
+      rendererPath: SM_Big_Rock_01_LOD2
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 501261e512c22b14a8ac380ac7074b44, type: 2}
+      rendererPath: SM_Big_Rock_01_LOD3
+    toonMaterials:
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 336f11b7ac83e61479fc613a0309b3ef, type: 2}
+      rendererPath: SM_Big_Rock_01_LOD0
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 265b03c37f3735040b280eaf70e25555, type: 2}
+      rendererPath: SM_Big_Rock_01_LOD1
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: 31a75f9970006df40b2488b8d6cb764a, type: 2}
+      rendererPath: SM_Big_Rock_01_LOD2
+    - renderer: {fileID: 0}
+      materials:
+      - {fileID: 2100000, guid: ae2f96ca81f436849926c7a45dd99c5b, type: 2}
+      rendererPath: SM_Big_Rock_01_LOD3
+    isConverted: 0
+  toonShader: {fileID: 4800000, guid: f72399709b2df214da09d0901a22d6ad, type: 3}
