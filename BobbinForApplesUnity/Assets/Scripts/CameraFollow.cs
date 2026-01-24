@@ -7,6 +7,10 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float followSpeed = 5f;
     [SerializeField] private float deadZone = 2f;
     
+    [Header("Horizontal Follow")]
+    [SerializeField] private bool enableHorizontalFollow = false;
+    [SerializeField] private float horizontalDeadZone = 2f;
+    
     [Header("Zoom Settings")]
     [SerializeField] private float normalSize = 5f;
     [SerializeField] private float zoomInSize = 3f;
@@ -16,6 +20,11 @@ public class CameraFollow : MonoBehaviour
     private Vector3 fixedOffset;
     private float targetSize;
     private bool isZooming;
+    private float originalDeadZone;
+    private float originalHorizontalDeadZone;
+    private float currentDeadZone;
+    private float currentHorizontalDeadZone;
+    private bool horizontalFollowActive;
 
     private void Awake()
     {
@@ -32,6 +41,12 @@ public class CameraFollow : MonoBehaviour
         }
         
         targetSize = normalSize;
+        originalDeadZone = deadZone;
+        originalHorizontalDeadZone = horizontalDeadZone;
+        currentDeadZone = deadZone;
+        currentHorizontalDeadZone = horizontalDeadZone;
+        horizontalFollowActive = enableHorizontalFollow;
+        
         if (cameraComponent != null)
         {
             if (cameraComponent.orthographic)
@@ -58,6 +73,12 @@ public class CameraFollow : MonoBehaviour
         }
         
         FollowTargetY();
+        
+        if (horizontalFollowActive)
+        {
+            FollowTargetX();
+        }
+        
         UpdateZoom();
     }
 
@@ -67,12 +88,29 @@ public class CameraFollow : MonoBehaviour
         float targetY = target.position.y;
         float deltaY = targetY - currentCameraY;
         
-        if (Mathf.Abs(deltaY) > deadZone)
+        if (Mathf.Abs(deltaY) > currentDeadZone)
         {
             float direction = Mathf.Sign(deltaY);
-            float desiredY = targetY - (direction * deadZone);
-            Vector3 targetPosition = new Vector3(fixedOffset.x, desiredY, fixedOffset.z);
-            transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+            float desiredY = targetY - (direction * currentDeadZone);
+            Vector3 currentPosition = transform.position;
+            Vector3 targetPosition = new Vector3(currentPosition.x, desiredY, currentPosition.z);
+            transform.position = Vector3.Lerp(currentPosition, targetPosition, followSpeed * Time.deltaTime);
+        }
+    }
+
+    private void FollowTargetX()
+    {
+        float currentCameraX = transform.position.x;
+        float targetX = target.position.x;
+        float deltaX = targetX - currentCameraX;
+        
+        if (Mathf.Abs(deltaX) > currentHorizontalDeadZone)
+        {
+            float direction = Mathf.Sign(deltaX);
+            float desiredX = targetX - (direction * currentHorizontalDeadZone);
+            Vector3 currentPosition = transform.position;
+            Vector3 targetPosition = new Vector3(desiredX, currentPosition.y, currentPosition.z);
+            transform.position = Vector3.Lerp(currentPosition, targetPosition, followSpeed * Time.deltaTime);
         }
     }
 
@@ -112,6 +150,28 @@ public class CameraFollow : MonoBehaviour
         const float baseFov = 60f;
         const float baseSize = 5f;
         return baseFov * (size / baseSize);
+    }
+
+    public void SetDeadZone(float newDeadZone)
+    {
+        currentDeadZone = newDeadZone;
+        currentHorizontalDeadZone = newDeadZone;
+    }
+
+    public void ResetDeadZone()
+    {
+        currentDeadZone = originalDeadZone;
+        currentHorizontalDeadZone = originalHorizontalDeadZone;
+    }
+
+    public void EnableHorizontalFollow()
+    {
+        horizontalFollowActive = true;
+    }
+
+    public void DisableHorizontalFollow()
+    {
+        horizontalFollowActive = false;
     }
 
     public void ZoomInAndBack()
