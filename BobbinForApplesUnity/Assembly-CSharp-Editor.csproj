@@ -49,20 +49,11 @@
     <Analyzer Include="F:\apps\6000.3.4f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\FlatKit\[Render Pipeline] URP\Water\Editor\Tooltips.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\ToonConverterWindow.cs" />
-    <Compile Include="Assets\FlatKit\[Render Pipeline] URP\Water\Editor\WaterEditor.cs" />
-    <Compile Include="Assets\FlatKit\Shaders\Editor\ObjectOutlineEditorUtils.cs" />
-    <Compile Include="Assets\FlatKit\Demos\Common\Scripts\Motion\Editor\LinearMotionEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\AreaMaterialManagerEditor.cs" />
-    <Compile Include="Assets\FlatKit\Shaders\GradientSkybox\Editor\GradientSkyboxEditor.cs" />
-    <Compile Include="Assets\FlatKit\Shaders\Editor\Tooltips.cs" />
-    <Compile Include="Assets\FlatKit\Shaders\Editor\StylizedSurfaceEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\ToonMaterialMapping.cs" />
     <Compile Include="Assets\Scripts\Editor\ToonConverterData.cs" />
-    <Compile Include="Assets\FlatKit\Shaders\Editor\MaterialPropertyExtensions.cs" />
-    <Compile Include="Assets\FlatKit\Shaders\Editor\TerrainEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1469,6 +1460,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Center.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
       <Private>False</Private>
@@ -1513,9 +1508,6 @@
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj" />
     <ProjectReference Include="Bezi.Editor.csproj" />
-    <ProjectReference Include="ExternAttributes.Editor.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj" />
-    <ProjectReference Include="FlatKit.Utils.Editor.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>

@@ -43,18 +43,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AmbientLight: 0
+    - _AmbientLight: 0.3
     - _DetailReduction: 0
-    - _DetailSmoothing: 11.6
-    - _OutlineWidth: 0.0123
-    - _RimIntensity: 0.43
-    - _RimPower: 3.48
-    - _ShadowSmoothness: 0
-    - _ShadowSteps: 3.32
+    - _DetailSmoothing: 16
+    - _OutlineWidth: 0.01
+    - _RimIntensity: 0.4
+    - _RimPower: 3
+    - _ShadowSmoothness: 0.05
+    - _ShadowSteps: 2
     - _Smoothness: 0.5
-    - _SpecularIntensity: 0
+    - _SpecularIntensity: 0.8
     m_Colors:
-    - _BaseColor: {r: 0.45069414, g: 0.62071383, b: 0.6792453, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0.049999982, g: 0.02, b: 0.09999997, a: 1}
     - _RimColor: {r: 1, g: 0.9, b: 0.7, a: 1}
     - _ShadowColor: {r: 0.7, g: 0.65, b: 0.8, a: 1}

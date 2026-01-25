@@ -21,6 +21,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int rightArmLayer = 2;
     [SerializeField] private int kickLayer = 3;
 
+    [Header("Health System")]
+    [SerializeField] private PlayerHealthUI healthUI;
+    [SerializeField] private float invincibilityDuration = 1f;
+    [SerializeField] private float flashSequenceDuration = 0.3f;
+    [SerializeField] private float shakeIntensity = 0.15f;
+    [SerializeField] private float shakeDuration = 0.2f;
+
     private Rigidbody rigidBody;
     private Keyboard keyboard;
 
@@ -28,6 +35,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 rightSurfaceNormal = Vector3.zero;
     private bool isTouchingLeftSurface = false;
     private bool isTouchingRightSurface = false;
+    private bool isInvincible = false;
+    
+    private Renderer[] playerRenderers;
+    private Material[] originalMaterials;
+    private Material[] redFlashMaterials;
+    private Material[] whiteFlashMaterials;
+    private Vector3 originalPosition;
 
     private void Awake()
     {
@@ -51,7 +65,30 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+        InitializeFlashMaterials();
+        
         keyboard = Keyboard.current;
+    }
+    
+    private void InitializeFlashMaterials()
+    {
+        playerRenderers = GetComponentsInChildren<Renderer>();
+        originalMaterials = new Material[playerRenderers.Length];
+        redFlashMaterials = new Material[playerRenderers.Length];
+        whiteFlashMaterials = new Material[playerRenderers.Length];
+        
+        for (int i = 0; i < playerRenderers.Length; i++)
+        {
+            originalMaterials[i] = playerRenderers[i].material;
+            
+            redFlashMaterials[i] = new Material(originalMaterials[i]);
+            redFlashMaterials[i].color = Color.red;
+            
+            whiteFlashMaterials[i] = new Material(originalMaterials[i]);
+            whiteFlashMaterials[i].color = Color.white;
+        }
+        
+        originalPosition = transform.position;
     }
 
     private void ConfigureRigidbodyFor2DPlane()
@@ -122,7 +159,7 @@ public class PlayerController : MonoBehaviour
     private void HandleArmStrokes()
     {
         bool leftArmPressed = keyboard.aKey.wasPressedThisFrame;
-        bool rightArmPressed = keyboard.lKey.wasPressedThisFrame;
+        bool rightArmPressed = keyboard.dKey.wasPressedThisFrame;
 
         if (leftArmPressed && rightArmPressed)
         {
@@ -197,5 +234,93 @@ public class PlayerController : MonoBehaviour
     private Vector3 GetTorqueAxis()
     {
         return planeNormal.normalized;
+    }
+
+    public void TakeDamage()
+    {
+        if (isInvincible || healthUI == null)
+        {
+            return;
+        }
+
+        Debug.Log("Player taking damage - triggering flash sequence and shake");
+        healthUI.TakeDamage();
+        StartCoroutine(DamageFlashSequence());
+        StartCoroutine(DamageShake());
+        
+        if (healthUI.IsDead())
+        {
+            Die();
+        }
+        else
+        {
+            StartCoroutine(InvincibilityCoroutine());
+        }
+    }
+
+    private System.Collections.IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(invincibilityDuration);
+        isInvincible = false;
+    }
+    
+    private System.Collections.IEnumerator DamageFlashSequence()
+    {
+        float flashDuration = flashSequenceDuration / 4f;
+        
+        SetPlayerMaterials(redFlashMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(whiteFlashMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(redFlashMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(whiteFlashMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(originalMaterials);
+    }
+    
+    private void SetPlayerMaterials(Material[] materials)
+    {
+        for (int i = 0; i < playerRenderers.Length; i++)
+        {
+            if (playerRenderers[i] != null && materials[i] != null)
+            {
+                playerRenderers[i].material = materials[i];
+            }
+        }
+    }
+    
+    private System.Collections.IEnumerator DamageShake()
+    {
+        Vector3 startPosition = transform.position;
+        float elapsed = 0f;
+        
+        while (elapsed < shakeDuration)
+        {
+            float offsetX = Random.Range(-shakeIntensity, shakeIntensity);
+            float offsetY = Random.Range(-shakeIntensity, shakeIntensity);
+            
+            transform.position = startPosition + new Vector3(offsetX, offsetY, 0f);
+            
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        
+        transform.position = startPosition;
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player died!");
+    }
+
+    public void SetHealthUI(PlayerHealthUI ui)
+    {
+        healthUI = ui;
     }
 }

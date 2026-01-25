@@ -49,64 +49,171 @@
     <Analyzer Include="F:\apps\6000.3.4f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\FlatKit\Demos\[Demo] Desert\Scripts\FloatingMotion.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\CrosshairUI.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 4\ObstacleProximityGlow.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossArenaManager.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\ArenaProjectileBoundary.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\PlayerHealthUI.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\Boss UI\BossHealthBarUI.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\FlatKit\Demos\Common\Scripts\Motion\OrbitMotion.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossController.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 4\Area4DarknessController.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\AreaTrigger.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossAttackManager.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 4\PlayerLightController.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\Boss UI\BossTitleCardUI.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\PlayerProjectile.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\DiverBuoyancy.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\ArenaPlayerBoundary.cs" />
     <Compile Include="Assets\Scripts\BuoyancyPowerup.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 4\RadialLightController.cs" />
-    <Compile Include="Assets\FlatKit\[Render Pipeline] URP\Water\Scripts\Buoyancy.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 3\PlayerSilhouetteController.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\AreaGimmickController.cs" />
-    <Compile Include="Assets\FlatKit\Demos\Common\Scripts\UvScroller.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\ArenaOutline.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\FlatKit\Demos\[Demo] Desert\Scripts\BillboardLineRendererCircle.cs" />
-    <Compile Include="Assets\FlatKit\Demos\Common\Scripts\AutoLoadPipelineAsset.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\ProjectilePool.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\Boss UI\BossUIManager.cs" />
     <Compile Include="Assets\Scripts\AreaMaterialManager.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DepthBasedWaterEffect.cs" />
-    <Compile Include="Assets\FlatKit\Demos\Common\Scripts\Motion\LinearMotion.cs" />
+    <Compile Include="Assets\Scripts\CameraShake.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 2\CameraZoomController.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 3\Area3SilhouetteController.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossProjectile.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\PlayerShootingController.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 3\ObstacleSilhouetteController.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossMovement.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 4\Area4ExitTeleporter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Wii\Fonts\kenney_input_nintendo_wii_map.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Xbox Series\xbox-series_sheet_default.xml" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Touch\touch_sheet_default.xml" />
+    <None Include="Assets\Art\kenney_crosshairPack\License.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - License.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\PlayStation Series\playstation-series_sheet_default.xml" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Triplanar_Cover_Specular.shader" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Metalic_UV_Free_Faces.shader" />
-    <None Include="Assets\FlatKit\Shaders\StylizedSurface\LibraryUrp\LitForwardPass_DR.hlsl" />
-    <None Include="Assets\FlatKit\Shaders\StylizedSurface\LibraryUrp\TerrainLitPasses_DR.hlsl" />
-    <None Include="Assets\FlatKit\Demos\[Demo] Desert\Shaders\CircleDecal.shader" />
-    <None Include="Assets\FlatKit\Demos\[Demo] Desert\Shaders\Noise\ClassicNoise3D.hlsl" />
-    <None Include="Assets\FlatKit\Shaders\StylizedSurface\LibraryUrp\StylizedInput.hlsl" />
-    <None Include="Assets\FlatKit\Shaders\GradientSkybox\GradientSkybox.shader" />
-    <None Include="Assets\FlatKit\Demos\[Demo] Desert\Shaders\Noise\Common.hlsl" />
+    <None Include="Assets\Art\dungeonmode\dungeonmode\rexpaint\readme-rexpaint.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Steam Deck\Fonts\kenney_input_steam_deck_map.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Switch\nintendo-switch_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Flairs\Fonts\kenney_input_flairs_map.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Unity - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Keyboard &amp; Mouse\keyboard-&amp;-mouse_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Wii\nintendo-wii_sheet_default.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Generic\Fonts\kenney_input_generic_map.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - AFL.txt" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
+    <None Include="Assets\Art\kenney_crosshairPack\Size.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo WiiU\Fonts\kenney_input_nintendo_wiiu_map.txt" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Metalic_Snow.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Flairs\flairs_sheet_default.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\PlayStation Series\playstation-series_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Switch 2\nintendo-switch-2_sheet_default.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Steam Controller\Fonts\kenney_input_steam_controller_map.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Touch\Fonts\kenney_input_touch_map.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Playdate\playdate_sheet_double.xml" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Full_Triplanar_Cover.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\NatureManufacture Assets\Advanced Rock Pack\HD and URP Support Packs Rocks\Readme about rendering piplines support.txt" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Specular_Snow.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Switch 2\Fonts\kenney_input_nintendo_switch_2_map.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Gamecube\nintendo-gamecube_sheet_double.xml" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Top_Cover_Specular.shader" />
-    <None Include="Assets\FlatKit\Shaders\StylizedSurface\LibraryUrp\Lighting_DR.hlsl" />
-    <None Include="Assets\FlatKit\Demos\[Demo] Desert\Shaders\DesertCloud.hlsl" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Flairs\flairs_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Steam Controller\steam-controller_sheet_default.xml" />
+    <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
+    <None Include="Assets\Art\dungeonmode\dungeonmode\playscii\readme-playscii.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Playdate\playdate_sheet_default.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo WiiU\nintendo-wiiu_sheet_default.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Wii\nintendo-wii_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Xbox Series\Fonts\kenney_input_xbox_series_map.txt" />
     <None Include="Assets\Shaders\CelShaded.shader" />
-    <None Include="Assets\FlatKit\Shaders\StylizedSurface\StylizedSurfaceOutline.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Triplanar_Cover.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Gamecube\nintendo-gamecube_sheet_default.xml" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\License.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Metalic_Snow CutOut.shader" />
-    <None Include="Assets\FlatKit\Demos\[Demo] Desert\Shaders\DesertPillar.hlsl" />
+    <None Include="Assets\Art\Complete_UI_Essential_Pack_Free\Complete_UI_Essential_Pack_Free\Thank You for Purchasing!.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Keyboard &amp; Mouse\Fonts\kenney_input_keyboard_&amp;_mouse_map.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Generic\generic_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Steam Deck\steam-deck_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Xbox Series\xbox-series_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\PlayStation Series\Fonts\kenney_input_playstation_series_map.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_indirect.cginc" />
-    <None Include="Assets\FlatKit\Demos\[Demo] Desert\Shaders\Library\StylizedLighting.hlsl" />
+    <None Include="Assets\Art\Hearts\Hearts\PNG\health_bar\info.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Switch\nintendo-switch_sheet_default.xml" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Top_Cover.shader" />
-    <None Include="Assets\FlatKit\Demos\[Demo] Desert\Shaders\Noise\ClassicNoise2D.hlsl" />
-    <None Include="Assets\FlatKit\Shaders\StylizedSurface\TerrainLitAdd_DR.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Generic\generic_sheet_default.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo WiiU\nintendo-wiiu_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Playdate\Fonts\kenney_input_playdate_map.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Gamecube\Fonts\kenney_input_nintendo_gamecube_map.txt" />
+    <None Include="Assets\Art\Complete_UI_Essential_Pack_Free\Complete_UI_Essential_Pack_Free\License.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Keyboard &amp; Mouse\keyboard-&amp;-mouse_sheet_default.xml" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Specular_Snow CutOut.shader" />
-    <None Include="Assets\FlatKit\Shaders\StylizedSurface\StylizedSurface.shader" />
-    <None Include="Assets\FlatKit\Shaders\LightPlane.shader" />
-    <None Include="Assets\FlatKit\Shaders\StylizedSurface\Terrain.shader" />
-    <None Include="Assets\FlatKit\[Render Pipeline] URP\Water\Shaders\Water.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\Art\dungeonmode\dungeonmode\rexpaint\data\palettes\dungeon-pal.txt" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Steam Controller\steam-controller_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Touch\touch_sheet_double.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Steam Deck\steam-deck_sheet_default.xml" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Switch\Fonts\kenney_input_nintendo_switch_map.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\Shaders\Area4RadialLighting.shader" />
+    <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Switch 2\nintendo-switch-2_sheet_double.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1413,6 +1520,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Center.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
       <Private>False</Private>
@@ -1456,9 +1567,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Bezi.Editor.csproj" />
-    <ProjectReference Include="ExternAttributes.Editor.csproj" />
-    <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.csproj" />
-    <ProjectReference Include="FlatKit.Utils.Editor.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
