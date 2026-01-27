@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\PlayerProjectile.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Scripts\BobberMouthController.cs" />
     <Compile Include="Assets\Scripts\DiverBuoyancy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\ArenaPlayerBoundary.cs" />
