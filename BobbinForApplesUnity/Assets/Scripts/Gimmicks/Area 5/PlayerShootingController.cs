@@ -72,6 +72,11 @@ public class PlayerShootingController : MonoBehaviour
                 projectileScript.Initialize(aimDirection, projectileSpeed, projectilePool);
             }
             
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(AudioEventType.PlayerShoot, spawnPosition);
+            }
+            
             Debug.Log($"Projectile fired at position {spawnPosition}");
         }
     }

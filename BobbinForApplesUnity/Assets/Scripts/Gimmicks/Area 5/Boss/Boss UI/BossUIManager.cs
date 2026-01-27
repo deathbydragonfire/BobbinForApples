@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class BossUIManager : MonoBehaviour
 {
+    public event Action OnHealthBarReady;
+    
     [Header("UI Components")]
     [SerializeField] private BossHealthBarUI healthBarUI;
     [SerializeField] private BossTitleCardUI titleCardUI;
@@ -13,6 +16,11 @@ public class BossUIManager : MonoBehaviour
         if (healthBarUI == null)
         {
             healthBarUI = FindFirstObjectByType<BossHealthBarUI>();
+        }
+        
+        if (healthBarUI != null)
+        {
+            healthBarUI.OnFadeInComplete += HandleHealthBarFadeInComplete;
         }
         
         if (titleCardUI == null)
@@ -29,6 +37,20 @@ public class BossUIManager : MonoBehaviour
         {
             playerHealthUI = FindFirstObjectByType<PlayerHealthUI>();
         }
+    }
+    
+    private void OnDestroy()
+    {
+        if (healthBarUI != null)
+        {
+            healthBarUI.OnFadeInComplete -= HandleHealthBarFadeInComplete;
+        }
+    }
+    
+    private void HandleHealthBarFadeInComplete()
+    {
+        Debug.Log("Health bar ready - boss fight can begin");
+        OnHealthBarReady?.Invoke();
     }
     
     public void StartBossEncounter()

@@ -117,6 +117,18 @@ public class BossController : MonoBehaviour
         }
     }
     
+    public void StartCombat()
+    {
+        ChangeState(BossState.Moving);
+        
+        if (bossMovement != null)
+        {
+            bossMovement.StartMovement(currentPhase);
+        }
+        
+        Debug.Log("Boss combat started (without UI re-initialization)");
+    }
+    
     private void Update()
     {
         switch (currentState)

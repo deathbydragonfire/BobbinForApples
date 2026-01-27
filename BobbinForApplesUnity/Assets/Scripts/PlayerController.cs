@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float flashSequenceDuration = 0.3f;
     [SerializeField] private float shakeIntensity = 0.15f;
     [SerializeField] private float shakeDuration = 0.2f;
+    [SerializeField] private float healFlashDuration = 0.3f;
 
     private Rigidbody rigidBody;
     private Keyboard keyboard;
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour
             redFlashMaterials[i].color = Color.red;
             
             whiteFlashMaterials[i] = new Material(originalMaterials[i]);
-            whiteFlashMaterials[i].color = Color.white;
+            whiteFlashMaterials[i].color = new Color(10f, 10f, 10f, 1f);
         }
         
         originalPosition = transform.position;
@@ -187,6 +188,11 @@ public class PlayerController : MonoBehaviour
         }
 
         PlayAnimation(leftArmAnimationName, leftArmLayer);
+        
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(AudioEventType.PlayerStroke, transform.position);
+        }
     }
 
     private void ApplyRightStroke()
@@ -201,6 +207,11 @@ public class PlayerController : MonoBehaviour
         }
 
         PlayAnimation(rightArmAnimationName, rightArmLayer);
+        
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(AudioEventType.PlayerStroke, transform.position);
+        }
     }
 
     private void ApplyForwardStroke()
@@ -210,6 +221,11 @@ public class PlayerController : MonoBehaviour
 
         PlayAnimation(leftArmAnimationName, leftArmLayer);
         PlayAnimation(rightArmAnimationName, rightArmLayer);
+        
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(AudioEventType.PlayerStroke, transform.position);
+        }
     }
 
     private void HandleKick()
@@ -220,6 +236,11 @@ public class PlayerController : MonoBehaviour
             rigidBody.AddForce(forwardDirection * kickForce, ForceMode.Impulse);
 
             PlayAnimation(kickAnimationName, kickLayer);
+            
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(AudioEventType.PlayerKick, transform.position);
+            }
         }
     }
 
@@ -247,6 +268,11 @@ public class PlayerController : MonoBehaviour
         healthUI.TakeDamage();
         StartCoroutine(DamageFlashSequence());
         StartCoroutine(DamageShake());
+        
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(AudioEventType.PlayerDamage, transform.position);
+        }
         
         if (healthUI.IsDead())
         {
@@ -322,5 +348,35 @@ public class PlayerController : MonoBehaviour
     public void SetHealthUI(PlayerHealthUI ui)
     {
         healthUI = ui;
+    }
+    
+    public void PlayGoldGlowEffect()
+    {
+        StartCoroutine(HealFlashSequence());
+    }
+    
+    private System.Collections.IEnumerator HealFlashSequence()
+    {
+        float flashDuration = healFlashDuration / 6f;
+        
+        SetPlayerMaterials(whiteFlashMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(originalMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(whiteFlashMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(originalMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(whiteFlashMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(originalMaterials);
+        yield return new WaitForSeconds(flashDuration);
+        
+        SetPlayerMaterials(originalMaterials);
     }
 }

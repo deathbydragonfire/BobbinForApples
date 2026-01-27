@@ -122,6 +122,13 @@ public class BossTitleCardUI : MonoBehaviour
     {
         Debug.Log("Boss title card sequence completed");
         
+        PlayerHealthUI playerHealthUI = FindFirstObjectByType<PlayerHealthUI>();
+        if (playerHealthUI != null)
+        {
+            playerHealthUI.RestoreFullHealth();
+            Debug.Log("Player health restored to full before boss fight");
+        }
+        
         if (uiManager != null)
         {
             uiManager.ShowHealthUI();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,6 +6,8 @@ using TMPro;
 
 public class BossHealthBarUI : MonoBehaviour
 {
+    public event Action OnFadeInComplete;
+    
     [Header("UI References")]
     [SerializeField] private GameObject healthBarContainer;
     [SerializeField] private Image healthBarFill;
@@ -21,6 +24,8 @@ public class BossHealthBarUI : MonoBehaviour
     private float currentHealth;
     private float displayedHealth;
     private CanvasGroup canvasGroup;
+    private RectTransform healthBarFillRect;
+    private float healthBarWidth;
     
     private void Awake()
     {
@@ -34,6 +39,24 @@ public class BossHealthBarUI : MonoBehaviour
         if (healthBarFill != null)
         {
             healthBarFill.color = healthColor;
+            healthBarFillRect = healthBarFill.GetComponent<RectTransform>();
+            
+            if (healthBarFillRect != null)
+            {
+                RectTransform parentRect = healthBarFillRect.parent as RectTransform;
+                if (parentRect != null)
+                {
+                    healthBarWidth = parentRect.rect.width;
+                }
+                
+                healthBarFillRect.anchorMin = new Vector2(0, 0);
+                healthBarFillRect.anchorMax = new Vector2(0, 1);
+                healthBarFillRect.pivot = new Vector2(0, 0.5f);
+                healthBarFillRect.anchoredPosition = Vector2.zero;
+                healthBarFillRect.sizeDelta = new Vector2(healthBarWidth, 0);
+                
+                Debug.Log($"HealthBar initialized: width = {healthBarWidth}");
+            }
         }
         
         if (bossNameText != null)
@@ -70,6 +93,34 @@ public class BossHealthBarUI : MonoBehaviour
         StartCoroutine(SmoothUpdateHealth());
     }
     
+    public void RefillHealth(float newMaxHealth, float refillDuration = 3f)
+    {
+        maxHealth = newMaxHealth;
+        currentHealth = newMaxHealth;
+        StopAllCoroutines();
+        StartCoroutine(RefillHealthBar(refillDuration));
+    }
+    
+    private IEnumerator RefillHealthBar(float duration)
+    {
+        float startHealth = displayedHealth;
+        float elapsed = 0f;
+        
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            
+            displayedHealth = Mathf.Lerp(startHealth, maxHealth, t);
+            UpdateHealthBar();
+            
+            yield return null;
+        }
+        
+        displayedHealth = maxHealth;
+        UpdateHealthBar();
+    }
+    
     private IEnumerator SmoothUpdateHealth()
     {
         float startHealth = displayedHealth;
@@ -94,9 +145,11 @@ public class BossHealthBarUI : MonoBehaviour
     {
         float fillAmount = displayedHealth / maxHealth;
         
-        if (healthBarFill != null)
+        if (healthBarFillRect != null)
         {
-            healthBarFill.fillAmount = fillAmount;
+            float targetWidth = healthBarWidth * fillAmount;
+            healthBarFillRect.sizeDelta = new Vector2(targetWidth, 0);
+            Debug.Log($"HealthBar Updated: {displayedHealth}/{maxHealth} = {fillAmount:F2} (width = {targetWidth:F1}/{healthBarWidth:F1})");
         }
         
         if (healthPercentageText != null)
@@ -137,6 +190,9 @@ public class BossHealthBarUI : MonoBehaviour
         }
         
         canvasGroup.alpha = 1f;
+        
+        OnFadeInComplete?.Invoke();
+        Debug.Log("Boss health bar fade-in complete");
     }
     
     private IEnumerator FadeOut()

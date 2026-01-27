@@ -38,27 +38,57 @@ public class PlayerProjectile : MonoBehaviour
         
         if (other.CompareTag("Boss"))
         {
-            BossController boss = other.GetComponentInParent<BossController>();
-            if (boss == null)
+            BossController bossController = other.GetComponentInParent<BossController>();
+            if (bossController == null)
             {
-                boss = other.GetComponent<BossController>();
+                bossController = other.GetComponent<BossController>();
             }
             
-            if (boss != null)
+            if (bossController != null)
             {
-                Debug.Log("Boss hit! Dealing damage.");
-                boss.TakeDamage(10f);
-            }
-            else
-            {
-                Debug.LogWarning("Boss tag detected but BossController not found!");
+                Debug.Log("BossController hit! Dealing damage.");
+                bossController.TakeDamage(5f);
+                ReturnToPool();
+                return;
             }
             
+            BobbdraManager bobbdraManager = other.GetComponentInParent<BobbdraManager>();
+            if (bobbdraManager == null)
+            {
+                bobbdraManager = other.GetComponent<BobbdraManager>();
+            }
+            
+            if (bobbdraManager != null)
+            {
+                Debug.Log("BobbdraManager hit! Dealing damage.");
+                bobbdraManager.TakeDamage(3f, transform.position);
+                ReturnToPool();
+                return;
+            }
+            
+            Debug.LogWarning("Boss tag detected but no boss component found!");
             ReturnToPool();
         }
-        else if (other.gameObject.layer != LayerMask.NameToLayer("Default"))
+        else
         {
-            ReturnToPool();
+            AnnoyingHeadController annoyingHead = other.GetComponentInParent<AnnoyingHeadController>();
+            if (annoyingHead == null)
+            {
+                annoyingHead = other.GetComponent<AnnoyingHeadController>();
+            }
+            
+            if (annoyingHead != null)
+            {
+                Debug.Log("Annoying Head hit!");
+                annoyingHead.TakeHit();
+                ReturnToPool();
+                return;
+            }
+            
+            if (other.gameObject.layer != LayerMask.NameToLayer("Default"))
+            {
+                ReturnToPool();
+            }
         }
     }
     

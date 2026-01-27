@@ -8,6 +8,11 @@ public class BossArenaManager : MonoBehaviour
     [SerializeField] private Transform bossSpawnPoint;
     [SerializeField] private Vector3 arenaCenter = Vector3.zero;
     
+    [Header("Phase 1: Bobbdra")]
+    [SerializeField] private GameObject bobbdraPrefab;
+    [SerializeField] private Transform bobbdraSpawnPoint;
+    [SerializeField] private bool enableTwoPhaseMode = true;
+    
     [Header("Camera Settings")]
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float bossArenaCameraSize = 9f;
@@ -40,12 +45,16 @@ public class BossArenaManager : MonoBehaviour
     private const string PLAYER_TAG = "Player";
     
     private GameObject spawnedBoss;
+    private GameObject spawnedBobbdra;
     private bool bossSpawned;
     private bool fightActive;
     private CameraFollow cameraFollow;
     private Vector3 originalCameraPosition;
     private bool cameraTransitioning;
     private Vector3 targetCameraPosition;
+    
+    private enum BossFightPhase { Bobbdra, BulletHell }
+    private BossFightPhase currentPhase = BossFightPhase.Bobbdra;
     
     private void Awake()
     {
@@ -83,6 +92,11 @@ public class BossArenaManager : MonoBehaviour
             uiManager = FindFirstObjectByType<BossUIManager>();
         }
         
+        if (uiManager != null)
+        {
+            uiManager.OnHealthBarReady += OnHealthBarReady;
+        }
+        
         if (playerHealthUI == null)
         {
             playerHealthUI = FindFirstObjectByType<PlayerHealthUI>();
@@ -114,6 +128,41 @@ public class BossArenaManager : MonoBehaviour
         }
     }
     
+    private void OnDestroy()
+    {
+        if (uiManager != null)
+        {
+            uiManager.OnHealthBarReady -= OnHealthBarReady;
+        }
+    }
+    
+    private void OnHealthBarReady()
+    {
+        Debug.Log("Health bar ready - enabling player shooting and boss attacks");
+        
+        if (playerShooting != null)
+        {
+            playerShooting.EnableShooting();
+        }
+        
+        if (currentPhase == BossFightPhase.Bobbdra && spawnedBobbdra != null)
+        {
+            BobbdraManager bobbdraManager = spawnedBobbdra.GetComponent<BobbdraManager>();
+            if (bobbdraManager != null)
+            {
+                bobbdraManager.StartBossFight();
+            }
+        }
+        else if (currentPhase == BossFightPhase.BulletHell && spawnedBoss != null)
+        {
+            BossController bossController = spawnedBoss.GetComponent<BossController>();
+            if (bossController != null)
+            {
+                bossController.StartCombat();
+            }
+        }
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(PLAYER_TAG) && !bossSpawned)
@@ -137,12 +186,25 @@ public class BossArenaManager : MonoBehaviour
         bossSpawned = true;
         fightActive = true;
         
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayMusic("Boss Fight", 2f);
+            Debug.Log("Boss fight music triggered!");
+        }
+        
         StartCoroutine(BossEncounterSequence());
     }
     
     private IEnumerator BossEncounterSequence()
     {
-        SpawnBoss();
+        if (enableTwoPhaseMode && bobbdraPrefab != null)
+        {
+            SpawnBobbdra();
+        }
+        else
+        {
+            SpawnBoss();
+        }
         
         if (playerHealthUI != null)
         {
@@ -163,11 +225,6 @@ public class BossArenaManager : MonoBehaviour
         
         yield return StartCoroutine(CameraIntroSequence());
         
-        if (playerShooting != null)
-        {
-            playerShooting.EnableShooting();
-        }
-        
         if (uiManager != null)
         {
             uiManager.StartBossEncounter();
@@ -176,19 +233,21 @@ public class BossArenaManager : MonoBehaviour
     
     private IEnumerator CameraIntroSequence()
     {
-        if (mainCamera == null || spawnedBoss == null) yield break;
+        if (mainCamera == null) yield break;
+        
+        GameObject targetBoss = currentPhase == BossFightPhase.Bobbdra ? spawnedBobbdra : spawnedBoss;
+        if (targetBoss == null) yield break;
         
         if (cameraFollow != null)
         {
             cameraFollow.enabled = false;
         }
         
-        Vector3 bossPosition = spawnedBoss.transform.position;
-        Vector3 bossZoomPosition = new Vector3(bossPosition.x, bossPosition.y, mainCamera.transform.position.z);
+        Vector3 arenaZoomPosition = new Vector3(arenaCenter.x, arenaCenter.y, mainCamera.transform.position.z);
         Vector3 startPosition = mainCamera.transform.position;
         float startSize = mainCamera.orthographicSize;
         
-        Debug.Log("Camera intro: Zooming to boss");
+        Debug.Log("Camera intro: Zooming to arena center");
         float elapsed = 0f;
         float zoomToBossDuration = 1.5f;
         while (elapsed < zoomToBossDuration)
@@ -197,13 +256,13 @@ public class BossArenaManager : MonoBehaviour
             float t = elapsed / zoomToBossDuration;
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
             
-            mainCamera.transform.position = Vector3.Lerp(startPosition, bossZoomPosition, smoothT);
+            mainCamera.transform.position = Vector3.Lerp(startPosition, arenaZoomPosition, smoothT);
             mainCamera.orthographicSize = Mathf.Lerp(startSize, bossIntroZoomSize, smoothT);
             
             yield return null;
         }
         
-        mainCamera.transform.position = bossZoomPosition;
+        mainCamera.transform.position = arenaZoomPosition;
         mainCamera.orthographicSize = bossIntroZoomSize;
         
         yield return new WaitForSeconds(0.5f);
@@ -218,7 +277,7 @@ public class BossArenaManager : MonoBehaviour
             float t = elapsed / zoomOutDuration;
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
             
-            mainCamera.transform.position = Vector3.Lerp(bossZoomPosition, arenaPosition, smoothT);
+            mainCamera.transform.position = Vector3.Lerp(arenaZoomPosition, arenaPosition, smoothT);
             mainCamera.orthographicSize = Mathf.Lerp(bossIntroZoomSize, bossArenaCameraSize, smoothT);
             
             yield return null;
@@ -235,6 +294,13 @@ public class BossArenaManager : MonoBehaviour
     
     private void SpawnBoss()
     {
+        Debug.Log($"=== SpawnBoss() called. Current spawnedBoss: {(spawnedBoss != null ? spawnedBoss.name : "null")} ===");
+        
+        if (spawnedBoss != null)
+        {
+            Debug.LogError("WARNING: SpawnBoss called but spawnedBoss already exists!");
+        }
+        
         if (bossPrefab == null)
         {
             Debug.LogError("Boss prefab not assigned!");
@@ -275,7 +341,105 @@ public class BossArenaManager : MonoBehaviour
             uiManager.InitializeBossHealth(400f);
         }
         
-        Debug.Log($"Boss spawned at: {spawnPosition} with tag: {spawnedBoss.tag}");
+        Debug.Log($"Boss spawned at: {spawnPosition} with tag: {spawnedBoss.tag}, instance: {spawnedBoss.GetInstanceID()}");
+    }
+    
+    private void SpawnBobbdra()
+    {
+        if (bobbdraPrefab == null)
+        {
+            Debug.LogError("Bobbdra prefab not assigned! Falling back to regular boss.");
+            SpawnBoss();
+            return;
+        }
+        
+        Vector3 spawnPosition = bobbdraSpawnPoint != null ? bobbdraSpawnPoint.position : new Vector3(arenaCenter.x, arenaCenter.y - 4f, 0f);
+        spawnPosition.z = 0f;
+        
+        Debug.Log($"Bobbdra spawn position: {spawnPosition}");
+        spawnedBobbdra = Instantiate(bobbdraPrefab, spawnPosition, Quaternion.identity);
+        
+        BobbdraManager bobbdraManager = spawnedBobbdra.GetComponent<BobbdraManager>();
+        if (bobbdraManager != null)
+        {
+            bobbdraManager.OnBobbdraDefeated += OnBobbdraPhaseComplete;
+        }
+        
+        if (uiManager != null)
+        {
+            BossHealthBarUI healthBar = uiManager.GetHealthBarUI();
+            if (healthBar != null && bobbdraManager != null)
+            {
+                bobbdraManager.SetHealthBarUI(healthBar);
+                Debug.Log("Bobbdra health bar UI connected");
+            }
+            
+            uiManager.InitializeBossHealth(bobbdraManager != null ? bobbdraManager.MaxHealth : 400f);
+        }
+        
+        Debug.Log($"Bobbdra spawned at: {spawnPosition} with tag: {spawnedBobbdra.tag}");
+    }
+    
+    private void OnBobbdraPhaseComplete()
+    {
+        Debug.Log("Bobbdra defeated! Starting Phase 2 transition...");
+        StartCoroutine(TransitionToPhase2());
+    }
+    
+    private IEnumerator TransitionToPhase2()
+    {
+        Debug.Log("=== PHASE 2 TRANSITION START ===");
+        currentPhase = BossFightPhase.BulletHell;
+        
+        if (playerShooting != null)
+        {
+            playerShooting.DisableShooting();
+        }
+        
+        ClearAllProjectiles();
+        
+        yield return new WaitForSeconds(1.5f);
+        
+        if (spawnedBobbdra != null)
+        {
+            Debug.Log("Destroying Bobbdra instance...");
+            Destroy(spawnedBobbdra);
+            spawnedBobbdra = null;
+            yield return new WaitForSeconds(0.2f);
+        }
+        
+        if (spawnedBoss != null)
+        {
+            Debug.LogError("WARNING: Boss already exists! Destroying old boss before spawning new one.");
+            Destroy(spawnedBoss);
+            spawnedBoss = null;
+            yield return new WaitForSeconds(0.2f);
+        }
+        
+        Debug.Log("Spawning Phase 2 bullet hell boss...");
+        SpawnBoss();
+        
+        yield return new WaitForSeconds(0.5f);
+        
+        Debug.Log("Starting camera intro for Phase 2...");
+        yield return StartCoroutine(CameraIntroSequence());
+        
+        if (uiManager != null)
+        {
+            BossController bossController = spawnedBoss != null ? spawnedBoss.GetComponent<BossController>() : null;
+            if (bossController != null)
+            {
+                BossHealthBarUI healthBar = uiManager.GetHealthBarUI();
+                if (healthBar != null)
+                {
+                    healthBar.RefillHealth(400f, 3f);
+                    Debug.Log("Phase 2 boss health bar refilling over 3 seconds");
+                }
+                uiManager.ShowHealthUI();
+            }
+        }
+        
+        Debug.Log("=== PHASE 2 TRANSITION COMPLETE ===");
     }
     
     private void TransitionCameraToArena()
