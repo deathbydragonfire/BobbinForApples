@@ -135,6 +135,7 @@
     <Compile Include="Assets\Scripts\Audio\MusicTrack.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 3\Area3SilhouetteController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\Scripts\BobberNeckLookAt.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\AnnoyingHeadController.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossProjectile.cs" />
