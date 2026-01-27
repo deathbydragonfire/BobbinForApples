@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2557549230860966474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.3, y: 3.9, z: 0}
+  m_LocalPosition: {x: -17.21, y: 15.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2726492412677106125}
   - component: {fileID: 5151079105641990193}
-  - component: {fileID: 8933058775077463161}
+  - component: {fileID: 287574328542951004}
   m_Layer: 0
   m_Name: Bobber
   m_TagString: Untagged
@@ -185,7 +185,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &8933058775077463161
+--- !u!114 &287574328542951004
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,11 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010db69b670ad0747972b2121a47d351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BobberNeckLookAt
-  neckBone: {fileID: 707421609467145081}
   target: {fileID: 1898492818101861556}
-  maxRotationAngle: 45
-  rotationSpeed: 5
-  smoothRotation: 1
 --- !u!1001 &4281043816028614858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -254,6 +250,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5504319192291103505, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.66318
+      objectReference: {fileID: 0}
+    - target: {fileID: -5504319192291103505, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.3683434
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654695972333542323, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9761843
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654695972333542323, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654695972333542323, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654695972333542323, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.21694273
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654695972333542323, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -25.059
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -262,11 +286,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6965916649751957843}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
---- !u!4 &707421609467145081 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3654695972333542323, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
-  m_PrefabInstance: {fileID: 4281043816028614858}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3190383209511733524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: c13194ae51e780b4caa3681b37796efd, type: 3}
