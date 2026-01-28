@@ -3254,6 +3254,8 @@ MonoBehaviour:
     soundData: {fileID: 11400000, guid: afb1ed585cd7f2447a22a75e75e93791, type: 2}
   - eventType: 8
     soundData: {fileID: 11400000, guid: 751ea7b2405e42b42aee469f6d23ebd8, type: 2}
+  - eventType: 10
+    soundData: {fileID: 11400000, guid: d708f1a1393e57d48bb2b31ea669ae3f, type: 2}
   - eventType: 11
     soundData: {fileID: 11400000, guid: 5cc1fd0a36c2ad74bb14afd731770472, type: 2}
   - eventType: 12

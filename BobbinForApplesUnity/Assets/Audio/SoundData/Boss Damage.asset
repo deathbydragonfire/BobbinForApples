@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3e1d3f7f8732a4e8a1f399a657d654, type: 3}
   m_Name: Boss Damage
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
-  clip: {fileID: 8300000, guid: 82097b64959438344a12e4139e22059d, type: 3}
-  volume: 0.238
+  clip: {fileID: 8300000, guid: 6d6ec26e1bd76c44795e8a9e3018944f, type: 3}
+  volume: 0.575
   pitch: 1
   startOffset: 0
   randomizePitch: 1

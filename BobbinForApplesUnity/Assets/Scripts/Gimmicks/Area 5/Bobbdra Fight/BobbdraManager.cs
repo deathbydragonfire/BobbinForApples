@@ -384,6 +384,11 @@ public class BobbdraManager : MonoBehaviour
             healthBarUI.UpdateHealth(currentHealth);
         }
         
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(AudioEventType.BossDamage, hitPosition);
+        }
+        
         StartCoroutine(HitFeedback());
         
         if (visualEffects != null)

@@ -3254,12 +3254,12 @@ MonoBehaviour:
     soundData: {fileID: 11400000, guid: afb1ed585cd7f2447a22a75e75e93791, type: 2}
   - eventType: 8
     soundData: {fileID: 11400000, guid: 751ea7b2405e42b42aee469f6d23ebd8, type: 2}
+  - eventType: 10
+    soundData: {fileID: 11400000, guid: d708f1a1393e57d48bb2b31ea669ae3f, type: 2}
   - eventType: 11
     soundData: {fileID: 11400000, guid: 5cc1fd0a36c2ad74bb14afd731770472, type: 2}
   - eventType: 12
     soundData: {fileID: 11400000, guid: 269506b3ce8daa64491d939df8cde39a, type: 2}
-  - eventType: 4
-    soundData: {fileID: 11400000, guid: 9a42e3321d5c29045bf16e9778d8ca4f, type: 2}
   masterVolume: 1
 --- !u!4 &436755824
 Transform:
@@ -3867,7 +3867,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 6, y: 0.00012207031}
+  m_AnchoredPosition: {x: 6, y: 0}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &642860233
@@ -14148,11 +14148,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5570091174172849861, guid: c743ca57cc278604093811bbc0ec1bb0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.6
+      value: -12.7
       objectReference: {fileID: 0}
     - target: {fileID: 5570091174172849861, guid: c743ca57cc278604093811bbc0ec1bb0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -264
+      value: -550.7
       objectReference: {fileID: 0}
     - target: {fileID: 5570091174172849861, guid: c743ca57cc278604093811bbc0ec1bb0, type: 3}
       propertyPath: m_LocalPosition.z

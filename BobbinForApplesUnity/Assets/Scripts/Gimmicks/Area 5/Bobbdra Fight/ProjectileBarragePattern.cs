@@ -12,6 +12,7 @@ public class ProjectileBarragePattern : BobbdraAttackPattern
     [SerializeField] private bool doubleVolley = false;
     [SerializeField] private float volleyDelay = 0.5f;
     [SerializeField] private float projectileSpeed = 8f;
+    [SerializeField] private float projectileScale = 1.5f;
     
     [Header("Animation Settings")]
     [SerializeField] private bool useAnimation = true;
@@ -222,7 +223,7 @@ public class ProjectileBarragePattern : BobbdraAttackPattern
             if (projectilesPerVolley == 1)
             {
                 Vector3 direction = GetDirectionToPlayer(head);
-                head.FireProjectile(direction, projectileSpeed);
+                head.FireProjectile(direction, projectileSpeed, projectileScale);
             }
             else
             {
@@ -235,7 +236,7 @@ public class ProjectileBarragePattern : BobbdraAttackPattern
                 {
                     float angle = startAngle + (angleIncrement * i);
                     Vector3 rotatedDirection = Quaternion.Euler(0, 0, angle) * baseDirection;
-                    head.FireProjectile(rotatedDirection, projectileSpeed);
+                    head.FireProjectile(rotatedDirection, projectileSpeed, projectileScale);
                 }
             }
         }
@@ -250,7 +251,7 @@ public class ProjectileBarragePattern : BobbdraAttackPattern
         for (int i = 0; i < projectilesPerVolley; i++)
         {
             Vector3 direction = GetDirectionToPlayer(head);
-            head.FireProjectile(direction, projectileSpeed);
+            head.FireProjectile(direction, projectileSpeed, projectileScale);
             
             if (i < projectilesPerVolley - 1)
             {

@@ -256,7 +256,7 @@ public class BobbdraHead : MonoBehaviour
         return projectileBarrageClip;
     }
     
-    public void FireProjectile(Vector3 direction, float speed = 8f)
+    public void FireProjectile(Vector3 direction, float speed = 8f, float scale = 1f)
     {
         if (projectilePrefab == null)
         {
@@ -266,6 +266,11 @@ public class BobbdraHead : MonoBehaviour
         
         Vector3 spawnPosition = projectileSpawnPoint != null ? projectileSpawnPoint.position : transform.position;
         GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+        
+        if (scale != 1f)
+        {
+            projectile.transform.localScale = projectile.transform.localScale * scale;
+        }
         
         BobbdraProjectile projectileScript = projectile.GetComponent<BobbdraProjectile>();
         if (projectileScript != null)

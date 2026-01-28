@@ -777,6 +777,7 @@ MonoBehaviour:
   doubleVolley: 0
   volleyDelay: 2
   projectileSpeed: 45
+  projectileScale: 2
   useAnimation: 1
   fireDelayAfterAnimationStart: 1
   onlyCenterHeadAnimation: 1
@@ -970,6 +971,8 @@ GameObject:
   m_Component:
   - component: {fileID: 392380974518598611}
   - component: {fileID: 6209262745874681867}
+  - component: {fileID: 5487966835663009906}
+  - component: {fileID: 3709896544831828758}
   m_Layer: 0
   m_Name: Neck
   m_TagString: Untagged
@@ -1051,6 +1054,43 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!135 &5487966835663009906
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721326316823006466}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3.86
+  m_Center: {x: 0, y: -0.0000011920929, z: 0}
+--- !u!114 &3709896544831828758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721326316823006466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0260126db7703ed46af5a3342ebc061e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BobbdraHeadShootable
+  bobbdraManager: {fileID: 0}
+  damageMultiplier: 1
+  hitFlashColor: {r: 1, g: 0, b: 0, a: 1}
+  hitFlashDuration: 0.1
 --- !u!1 &2330112334921744537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2124,6 +2164,7 @@ GameObject:
   - component: {fileID: 3901320747715736581}
   - component: {fileID: 5792004713282997822}
   - component: {fileID: 5625498258315403598}
+  - component: {fileID: 8798335288059967068}
   m_Layer: 0
   m_Name: Head
   m_TagString: Boss
@@ -2244,7 +2285,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 9.19164
+  m_Radius: 8.43
   m_Center: {x: -0.0005846023, y: 0.03999233, z: 0}
 --- !u!114 &5625498258315403598
 MonoBehaviour:
@@ -2260,6 +2301,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BobbdraHeadDamage
   damageOnContact: 1
   damageCooldown: 1
+--- !u!114 &8798335288059967068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4521841777127811097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0d8e4e6a0f8dea4a90295ea27475fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MotionBlurTester
+  targetController: {fileID: 0}
+  puppetControllers: []
+  controlAllPuppets: 1
+  toggleBlurKey: 98
+  cycleMethodKey: 109
+  increaseIntensityKey: 270
+  decreaseIntensityKey: 269
+  blurEnabled: 1
+  currentIntensity: 0.5
+  intensityStep: 0.1
 --- !u!1 &4586182083958563910
 GameObject:
   m_ObjectHideFlags: 0
