@@ -66,6 +66,20 @@ public class PlayerProjectile : MonoBehaviour
                 return;
             }
             
+            BobbdraHeadShootable shootableHead = other.GetComponentInParent<BobbdraHeadShootable>();
+            if (shootableHead == null)
+            {
+                shootableHead = other.GetComponent<BobbdraHeadShootable>();
+            }
+            
+            if (shootableHead != null)
+            {
+                Debug.Log("Shootable attack head hit! Dealing damage via BobbdraHeadShootable.");
+                shootableHead.OnProjectileHit(transform.position);
+                ReturnToPool();
+                return;
+            }
+            
             Debug.LogWarning("Boss tag detected but no boss component found!");
             ReturnToPool();
         }

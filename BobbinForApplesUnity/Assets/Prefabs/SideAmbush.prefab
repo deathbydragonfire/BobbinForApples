@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5883434174267388526}
+  - component: {fileID: 6778132936590156504}
   m_Layer: 0
   m_Name: Rot
   m_TagString: Untagged
@@ -32,6 +33,47 @@ Transform:
   - {fileID: 3190383209511733524}
   m_Father: {fileID: 2726492412677106125}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 65}
+--- !u!114 &6778132936590156504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15772036587929509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 795e133e24fd8014caa2bc4373dfd368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.1
+  flashCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  colorPropertyName: _Color
+  emissionPropertyName: _EmissionColor
+  useEmission: 0
 --- !u!1 &205501642572761791
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,9 +148,14 @@ GameObject:
   - component: {fileID: 7382378972772451080}
   - component: {fileID: 7505726631175335581}
   - component: {fileID: 3012383815976855059}
+  - component: {fileID: 2925535932349546678}
+  - component: {fileID: 8415184443659593167}
+  - component: {fileID: 3370108184861872223}
+  - component: {fileID: 3236583415360867925}
+  - component: {fileID: 3429919542123982000}
   m_Layer: 0
   m_Name: Neck
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,13 +168,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257119416954099494}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.1299992, y: 12.32, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.21865195, w: 0.9758029}
+  m_LocalPosition: {x: 3.201027, y: 12.062293, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3190383209511733524}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 25.26}
 --- !u!212 &7505726631175335581
 SpriteRenderer:
   serializedVersion: 2
@@ -210,6 +257,121 @@ MonoBehaviour:
     m_Extent: {x: 6.7300014, y: 12.241003, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!65 &2925535932349546678
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257119416954099494}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.8, y: 23.86, z: 0}
+  m_Center: {x: 0.6100002, y: 0.03024197, z: 0}
+--- !u!114 &8415184443659593167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257119416954099494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0260126db7703ed46af5a3342ebc061e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BobbdraHeadShootable
+  bobbdraManager: {fileID: 0}
+  damageMultiplier: 1
+  hitFlashColor: {r: 1, g: 0, b: 0, a: 1}
+  hitFlashDuration: 0.1
+--- !u!114 &3370108184861872223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257119416954099494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9fce308eaeb244080c866f12c89b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MotionBlurController
+  motionBlurType: 3
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+--- !u!114 &3236583415360867925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257119416954099494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f211244e06cf1db47b7dcb3d145f14f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteMotionBlurController
+  motionBlurMaterialPrefab: {fileID: 0}
+  velocityScale: 0.5
+  blurAmount: 0.5
+  blurSamples: 8
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+  velocitySmoothing: 0.1
+--- !u!114 &3429919542123982000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257119416954099494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05563f14e49be1428327f6fc823d516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostSpriteEffect
+  ghostInterval: 0.08
+  ghostLifetime: 0.4
+  ghostColor: {r: 1, g: 1, b: 1, a: 0.6}
+  maxGhosts: 8
+  fadeOutCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  alwaysActive: 1
+  minSpeedToActivate: 2
+  useTransformVelocity: 1
+  velocitySmoothing: 0.15
 --- !u!1 &1633616735392745965
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,9 +584,13 @@ GameObject:
   - component: {fileID: 2714188548145171353}
   - component: {fileID: 6998956556832596495}
   - component: {fileID: 27890526569903140}
+  - component: {fileID: 6319024453748816519}
+  - component: {fileID: 5136132534203208287}
+  - component: {fileID: 2529234621301413878}
+  - component: {fileID: 7383487540507484919}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -558,6 +724,100 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BobbdraHeadDamage
   damageOnContact: 1
   damageCooldown: 1
+--- !u!114 &6319024453748816519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264605831863998341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0260126db7703ed46af5a3342ebc061e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BobbdraHeadShootable
+  bobbdraManager: {fileID: 0}
+  damageMultiplier: 1
+  hitFlashColor: {r: 1, g: 0, b: 0, a: 1}
+  hitFlashDuration: 0.1
+--- !u!114 &5136132534203208287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264605831863998341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9fce308eaeb244080c866f12c89b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MotionBlurController
+  motionBlurType: 3
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+--- !u!114 &2529234621301413878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264605831863998341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f211244e06cf1db47b7dcb3d145f14f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteMotionBlurController
+  motionBlurMaterialPrefab: {fileID: 0}
+  velocityScale: 0.5
+  blurAmount: 0.5
+  blurSamples: 8
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+  velocitySmoothing: 0.1
+--- !u!114 &7383487540507484919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264605831863998341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05563f14e49be1428327f6fc823d516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostSpriteEffect
+  ghostInterval: 0.08
+  ghostLifetime: 0.4
+  ghostColor: {r: 1, g: 1, b: 1, a: 0.6}
+  maxGhosts: 8
+  fadeOutCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  alwaysActive: 1
+  minSpeedToActivate: 2
+  useTransformVelocity: 1
+  velocitySmoothing: 0.15
 --- !u!1 &3735949491875954437
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +985,9 @@ GameObject:
   - component: {fileID: 8485103713723489870}
   - component: {fileID: 5548674664550175465}
   - component: {fileID: 8488959253465803688}
+  - component: {fileID: 1211530160311554678}
+  - component: {fileID: 7772599858928496195}
+  - component: {fileID: 5097170083359967017}
   m_Layer: 0
   m_Name: Mouth Back
   m_TagString: Untagged
@@ -826,6 +1089,84 @@ MonoBehaviour:
     m_Extent: {x: 2.5500002, y: 6.761141, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!114 &1211530160311554678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373892074236998115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9fce308eaeb244080c866f12c89b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MotionBlurController
+  motionBlurType: 3
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+--- !u!114 &7772599858928496195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373892074236998115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f211244e06cf1db47b7dcb3d145f14f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteMotionBlurController
+  motionBlurMaterialPrefab: {fileID: 0}
+  velocityScale: 0.5
+  blurAmount: 0.5
+  blurSamples: 8
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+  velocitySmoothing: 0.1
+--- !u!114 &5097170083359967017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373892074236998115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05563f14e49be1428327f6fc823d516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostSpriteEffect
+  ghostInterval: 0.08
+  ghostLifetime: 0.4
+  ghostColor: {r: 1, g: 1, b: 1, a: 0.6}
+  maxGhosts: 8
+  fadeOutCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  alwaysActive: 1
+  minSpeedToActivate: 2
+  useTransformVelocity: 1
+  velocitySmoothing: 0.15
 --- !u!1 &6587520668535508304
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +1178,9 @@ GameObject:
   - component: {fileID: 368723218119483382}
   - component: {fileID: 7049612793256246042}
   - component: {fileID: 5696263146039024575}
+  - component: {fileID: 7742774005685787239}
+  - component: {fileID: 3817852371466641395}
+  - component: {fileID: 8255216733799546194}
   m_Layer: 0
   m_Name: Jaw
   m_TagString: Untagged
@@ -938,6 +1282,84 @@ MonoBehaviour:
     m_Extent: {x: 7.1855, y: 15.808432, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!114 &7742774005685787239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6587520668535508304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9fce308eaeb244080c866f12c89b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MotionBlurController
+  motionBlurType: 3
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+--- !u!114 &3817852371466641395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6587520668535508304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f211244e06cf1db47b7dcb3d145f14f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteMotionBlurController
+  motionBlurMaterialPrefab: {fileID: 0}
+  velocityScale: 0.5
+  blurAmount: 0.5
+  blurSamples: 8
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+  velocitySmoothing: 0.1
+--- !u!114 &8255216733799546194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6587520668535508304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05563f14e49be1428327f6fc823d516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostSpriteEffect
+  ghostInterval: 0.08
+  ghostLifetime: 0.4
+  ghostColor: {r: 1, g: 1, b: 1, a: 0.6}
+  maxGhosts: 8
+  fadeOutCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  alwaysActive: 1
+  minSpeedToActivate: 2
+  useTransformVelocity: 1
+  velocitySmoothing: 0.15
 --- !u!1 &8164278490300343114
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +1370,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2726492412677106125}
   - component: {fileID: 5151079105641990193}
+  - component: {fileID: 6170601203589386251}
+  - component: {fileID: 5160390238270185968}
+  - component: {fileID: 7498765576458058190}
+  - component: {fileID: 783201134451666442}
   m_Layer: 0
   m_Name: SideAmbush
   m_TagString: Untagged
@@ -1031,3 +1457,94 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &6170601203589386251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164278490300343114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef1ff1712099834a89d8db16b4d5266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BobbdraPuppetMotionBlur
+  findChildrenAutomatically: 1
+--- !u!114 &5160390238270185968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164278490300343114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9fce308eaeb244080c866f12c89b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MotionBlurController
+  motionBlurType: 3
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+--- !u!114 &7498765576458058190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164278490300343114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f211244e06cf1db47b7dcb3d145f14f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteMotionBlurController
+  motionBlurMaterialPrefab: {fileID: 0}
+  velocityScale: 0.5
+  blurAmount: 0.5
+  blurSamples: 8
+  alwaysActive: 1
+  minSpeedThreshold: 0.1
+  velocitySmoothing: 0.1
+--- !u!114 &783201134451666442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164278490300343114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05563f14e49be1428327f6fc823d516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostSpriteEffect
+  ghostInterval: 0.08
+  ghostLifetime: 0.4
+  ghostColor: {r: 1, g: 1, b: 1, a: 0.6}
+  maxGhosts: 8
+  fadeOutCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  alwaysActive: 1
+  minSpeedToActivate: 2
+  useTransformVelocity: 1
+  velocitySmoothing: 0.15

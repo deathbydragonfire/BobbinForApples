@@ -217,6 +217,14 @@ public class BobbdraManager : MonoBehaviour
         {
             if (heads[i] != null)
             {
+                heads[i].PrepareForAttack();
+            }
+        }
+        
+        for (int i = 0; i < heads.Length; i++)
+        {
+            if (heads[i] != null)
+            {
                 heads[i].PlayRoarAnimation(roarClip);
             }
         }
@@ -225,6 +233,14 @@ public class BobbdraManager : MonoBehaviour
         Debug.Log($"Bobbdra: Waiting for roar animation to complete ({roarDuration} seconds)");
         
         yield return new WaitForSeconds(roarDuration);
+        
+        for (int i = 0; i < heads.Length; i++)
+        {
+            if (heads[i] != null)
+            {
+                heads[i].OnRoarComplete();
+            }
+        }
         
         Debug.Log("Bobbdra: Roar animation complete");
     }
@@ -342,12 +358,19 @@ public class BobbdraManager : MonoBehaviour
     
     public void TakeDamage(float damage, Vector3 hitPosition)
     {
-        if (currentState == BossFightState.Death || isInvincible)
+        TakeDamage(damage, hitPosition, false);
+    }
+    
+    public void TakeDamage(float damage, Vector3 hitPosition, bool bypassInvincibility)
+    {
+        if (currentState == BossFightState.Death)
         {
-            if (isInvincible)
-            {
-                Debug.Log("Bobbdra is invincible - damage ignored");
-            }
+            return;
+        }
+        
+        if (isInvincible && !bypassInvincibility)
+        {
+            Debug.Log("Bobbdra is invincible - damage ignored");
             return;
         }
         
@@ -359,6 +382,11 @@ public class BobbdraManager : MonoBehaviour
         if (healthBarUI != null)
         {
             healthBarUI.UpdateHealth(currentHealth);
+        }
+        
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(AudioEventType.BossDamage, hitPosition);
         }
         
         StartCoroutine(HitFeedback());
