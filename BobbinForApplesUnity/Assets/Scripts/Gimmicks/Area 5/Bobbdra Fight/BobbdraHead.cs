@@ -31,6 +31,9 @@ public class BobbdraHead : MonoBehaviour
     [SerializeField] private AnimationClip projectileBarrageClip;
     [SerializeField] private ProjectileSpawnGlow projectileSpawnGlow;
     
+    [Header("Bite Animation Controller")]
+    [SerializeField] private BiteAnimationController biteAnimationController;
+    
     private BobbdraManager manager;
     private Vector3 restingPosition;
     private bool isAttacking;
@@ -84,6 +87,11 @@ public class BobbdraHead : MonoBehaviour
             headAnimator = GetComponent<BobbdraHeadAnimator>();
         }
         
+        if (biteAnimationController == null)
+        {
+            biteAnimationController = GetComponent<BiteAnimationController>();
+        }
+        
         Debug.Log($"BobbdraHead ({position}) initialized at position {restingPosition}");
         Debug.Log($"  - AnimationPlayer: {(animationPlayer != null ? "Found" : "NULL")}");
         Debug.Log($"  - LungeClip: {(lungeClip != null ? lungeClip.name : "NULL")}");
@@ -113,21 +121,34 @@ public class BobbdraHead : MonoBehaviour
         return target.parent.name + "/" + target.name;
     }
     
-    public void PerformBiteAttack(Vector3 targetPosition)
+    public void PerformBiteAttack(Vector3 targetPosition, bool skipIdleControl = false)
     {
         if (isAttacking)
         {
             return;
         }
         
-        StartCoroutine(BiteAttackSequence(targetPosition));
+        StartCoroutine(BiteAttackSequence(targetPosition, skipIdleControl));
     }
     
-    private IEnumerator BiteAttackSequence(Vector3 targetPosition)
+    public void PrepareForAttack(float delay = 0f, bool skipIdleControl = false)
+    {
+        if (!skipIdleControl && biteAnimationController != null)
+        {
+            biteAnimationController.ScheduleAttack(delay);
+        }
+    }
+    
+    private IEnumerator BiteAttackSequence(Vector3 targetPosition, bool skipIdleControl = false)
     {
         isAttacking = true;
         
         HideAttackIndicator();
+        
+        if (!skipIdleControl && biteAnimationController != null)
+        {
+            biteAnimationController.ReleaseFreeze();
+        }
         
         Debug.Log($"[{position}] BiteAttackSequence started");
         
@@ -164,11 +185,23 @@ public class BobbdraHead : MonoBehaviour
         
         ReturnToRestingPosition();
         
+        yield return new WaitForSeconds(0.1f);
+        
+        if (!skipIdleControl && biteAnimationController != null)
+        {
+            biteAnimationController.ForceResetImmediate();
+        }
+        
         isAttacking = false;
     }
     
     public void PlayProjectileBarrageAnimation()
     {
+        if (biteAnimationController != null)
+        {
+            biteAnimationController.ReleaseFreeze();
+        }
+        
         if (animationPlayer != null && projectileBarrageClip != null)
         {
             if (headAnimator != null)
@@ -196,6 +229,13 @@ public class BobbdraHead : MonoBehaviour
         {
             headAnimator.SetIdleEnabled(true);
         }
+        
+        if (biteAnimationController != null)
+        {
+            biteAnimationController.ForceResetImmediate();
+        }
+        
+        Debug.Log($"BobbdraHead ({position}): Projectile barrage complete, reset to closed idle");
     }
     
     public void TriggerProjectileGlow()
@@ -209,6 +249,11 @@ public class BobbdraHead : MonoBehaviour
         {
             Debug.LogWarning($"BobbdraHead ({position}): Cannot trigger glow - ProjectileSpawnGlow component not assigned!");
         }
+    }
+    
+    public AnimationClip GetProjectileBarrageClip()
+    {
+        return projectileBarrageClip;
     }
     
     public void FireProjectile(Vector3 direction, float speed = 8f)
@@ -252,6 +297,13 @@ public class BobbdraHead : MonoBehaviour
             headAnimator.SetIdleEnabled(true);
         }
         
+        yield return new WaitForSeconds(0.1f);
+        
+        if (biteAnimationController != null)
+        {
+            biteAnimationController.ForceResetImmediate();
+        }
+        
         transform.localPosition = restingPosition;
     }
     
@@ -265,6 +317,11 @@ public class BobbdraHead : MonoBehaviour
     
     public void PlayRoarAnimation(AnimationClip roarClip)
     {
+        if (biteAnimationController != null)
+        {
+            biteAnimationController.ReleaseFreeze();
+        }
+        
         if (animationPlayer != null && roarClip != null)
         {
             Debug.Log($"BobbdraHead ({position}): Playing roar animation");
@@ -288,6 +345,21 @@ public class BobbdraHead : MonoBehaviour
         }
     }
     
+    public void OnRoarComplete()
+    {
+        if (headAnimator != null)
+        {
+            headAnimator.SetIdleEnabled(true);
+        }
+        
+        if (biteAnimationController != null)
+        {
+            biteAnimationController.ForceResetImmediate();
+        }
+        
+        Debug.Log($"BobbdraHead ({position}): Roar complete, reset to closed idle");
+    }
+    
     public void StopAllAttacks()
     {
         StopAllCoroutines();
@@ -297,6 +369,11 @@ public class BobbdraHead : MonoBehaviour
         if (headAnimator != null)
         {
             headAnimator.SetIdleEnabled(false);
+        }
+        
+        if (biteAnimationController != null)
+        {
+            biteAnimationController.CancelScheduledAttack();
         }
         
         HideAttackIndicator();

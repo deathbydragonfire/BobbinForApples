@@ -68,7 +68,7 @@ public class SequentialBitePattern : BobbdraAttackPattern
             if (head != null)
             {
                 Vector3 biteTarget = head.transform.position + Vector3.up * 6f;
-                head.PerformBiteAttack(biteTarget);
+                head.PerformBiteAttack(biteTarget, skipIdleControl: true);
                 yield return new WaitForSeconds(delayBetweenHeads);
             }
         }

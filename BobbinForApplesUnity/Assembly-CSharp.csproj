@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\PlayerHealthUI.cs" />
     <Compile Include="Assets\Scripts\Audio\SoundData.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\AnimationClipInspector.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\BobbdraHeadShootable.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\Boss UI\BossHealthBarUI.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioEventType.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\ProjectilePool.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\Boss UI\BossUIManager.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioEventTrigger.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\BiteAnimationController.cs" />
     <Compile Include="Assets\Scripts\AreaMaterialManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\BossVisualEffects.cs" />

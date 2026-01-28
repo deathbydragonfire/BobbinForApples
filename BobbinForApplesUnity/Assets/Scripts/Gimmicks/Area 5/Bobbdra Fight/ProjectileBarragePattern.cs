@@ -71,14 +71,37 @@ public class ProjectileBarragePattern : BobbdraAttackPattern
     {
         Debug.Log($"Executing Projectile Barrage Pattern (useAnimation: {useAnimation}, useOnlyCenterHead: {useOnlyCenterHead}, projectilesPerVolley: {projectilesPerVolley})");
         
+        float animationLength = 0f;
+        
+        if (useOnlyCenterHead && centerHead != null)
+        {
+            centerHead.PrepareForAttack();
+        }
+        else if (!useOnlyCenterHead)
+        {
+            foreach (BobbdraHead head in heads)
+            {
+                if (head != null)
+                {
+                    head.PrepareForAttack();
+                }
+            }
+        }
+        
         if (useAnimation)
         {
             if (useOnlyCenterHead)
             {
                 if (centerHead != null)
                 {
+                    AnimationClip barrageClip = centerHead.GetProjectileBarrageClip();
+                    if (barrageClip != null)
+                    {
+                        animationLength = barrageClip.length;
+                    }
+                    
                     centerHead.PlayProjectileBarrageAnimation();
-                    Debug.Log($"ProjectileBarragePattern: Animation started. Waiting {fireDelayAfterAnimationStart}s before firing projectiles and glow.");
+                    Debug.Log($"ProjectileBarragePattern: Animation started (length: {animationLength}s). Waiting {fireDelayAfterAnimationStart}s before firing projectiles and glow.");
                     
                     yield return new WaitForSeconds(fireDelayAfterAnimationStart);
                     
@@ -122,6 +145,18 @@ public class ProjectileBarragePattern : BobbdraAttackPattern
             }
             
             FireVolley();
+        }
+        
+        if (useAnimation && animationLength > 0f)
+        {
+            float timeElapsed = fireDelayAfterAnimationStart + (doubleVolley ? volleyDelay : 0f);
+            float timeRemaining = animationLength - timeElapsed;
+            
+            if (timeRemaining > 0f)
+            {
+                Debug.Log($"ProjectileBarragePattern: Waiting {timeRemaining}s for animation to complete");
+                yield return new WaitForSeconds(timeRemaining);
+            }
         }
         
         if (useOnlyCenterHead && centerHead != null)
