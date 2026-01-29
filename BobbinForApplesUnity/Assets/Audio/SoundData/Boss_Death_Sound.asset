@@ -12,12 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3e1d3f7f8732a4e8a1f399a657d654, type: 3}
   m_Name: Boss_Death_Sound
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 0bc63429c00be9e409d19d164c1e58a2, type: 3}
   volume: 1
   pitch: 0.9
   startOffset: 0
   randomizePitch: 0
   pitchVariation: 0
-  is3DSound: 1
+  is3DSound: 0
   minDistance: 10
   maxDistance: 100
+  useReverb: 0
+  reverbZoneMix: 1
+  dryLevel: 0
+  room: 0
+  roomHF: 0
+  reverbLevel: 0
+  reflectionsLevel: -10000
+  decayTime: 1.49
+  decayHFRatio: 0.83
+  density: 100
+  diffusion: 100

@@ -26,6 +26,9 @@ public class BossHealthBarUI : MonoBehaviour
     private CanvasGroup canvasGroup;
     private RectTransform healthBarFillRect;
     private float healthBarWidth;
+    private Coroutine titleChangeCoroutine;
+    private Coroutine healthUpdateCoroutine;
+    private Coroutine refillCoroutine;
     
     private void Awake()
     {
@@ -89,16 +92,36 @@ public class BossHealthBarUI : MonoBehaviour
     public void UpdateHealth(float newHealth)
     {
         currentHealth = Mathf.Clamp(newHealth, 0f, maxHealth);
-        StopAllCoroutines();
-        StartCoroutine(SmoothUpdateHealth());
+        
+        if (healthUpdateCoroutine != null)
+        {
+            StopCoroutine(healthUpdateCoroutine);
+        }
+        if (refillCoroutine != null)
+        {
+            StopCoroutine(refillCoroutine);
+            refillCoroutine = null;
+        }
+        
+        healthUpdateCoroutine = StartCoroutine(SmoothUpdateHealth());
     }
     
     public void RefillHealth(float newMaxHealth, float refillDuration = 3f)
     {
         maxHealth = newMaxHealth;
         currentHealth = newMaxHealth;
-        StopAllCoroutines();
-        StartCoroutine(RefillHealthBar(refillDuration));
+        
+        if (healthUpdateCoroutine != null)
+        {
+            StopCoroutine(healthUpdateCoroutine);
+            healthUpdateCoroutine = null;
+        }
+        if (refillCoroutine != null)
+        {
+            StopCoroutine(refillCoroutine);
+        }
+        
+        refillCoroutine = StartCoroutine(RefillHealthBar(refillDuration));
     }
     
     private IEnumerator RefillHealthBar(float duration)
@@ -119,6 +142,7 @@ public class BossHealthBarUI : MonoBehaviour
         
         displayedHealth = maxHealth;
         UpdateHealthBar();
+        refillCoroutine = null;
     }
     
     private IEnumerator SmoothUpdateHealth()
@@ -139,6 +163,7 @@ public class BossHealthBarUI : MonoBehaviour
         
         displayedHealth = currentHealth;
         UpdateHealthBar();
+        healthUpdateCoroutine = null;
     }
     
     private void UpdateHealthBar()
@@ -166,14 +191,21 @@ public class BossHealthBarUI : MonoBehaviour
             healthBarContainer.SetActive(true);
         }
         
-        StopAllCoroutines();
         StartCoroutine(FadeIn());
     }
     
     public void Hide()
     {
-        StopAllCoroutines();
         StartCoroutine(FadeOut());
+    }
+    
+    public void ChangeTitle(string newTitle, float typingSpeed = 0.05f)
+    {
+        if (titleChangeCoroutine != null)
+        {
+            StopCoroutine(titleChangeCoroutine);
+        }
+        titleChangeCoroutine = StartCoroutine(TypewriterTitleChange(newTitle, typingSpeed));
     }
     
     private IEnumerator FadeIn()
@@ -215,5 +247,30 @@ public class BossHealthBarUI : MonoBehaviour
         {
             healthBarContainer.SetActive(false);
         }
+    }
+    
+    private IEnumerator TypewriterTitleChange(string newTitle, float typingSpeed)
+    {
+        if (bossNameText == null) yield break;
+        
+        string currentText = bossNameText.text;
+        
+        while (currentText.Length > 0)
+        {
+            currentText = currentText.Substring(0, currentText.Length - 1);
+            bossNameText.text = currentText;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+        
+        yield return new WaitForSeconds(0.2f);
+        
+        for (int i = 0; i <= newTitle.Length; i++)
+        {
+            bossNameText.text = newTitle.Substring(0, i);
+            yield return new WaitForSeconds(typingSpeed);
+        }
+        
+        bossName = newTitle;
+        titleChangeCoroutine = null;
     }
 }

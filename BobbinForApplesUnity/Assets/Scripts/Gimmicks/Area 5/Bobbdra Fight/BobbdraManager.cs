@@ -65,11 +65,14 @@ public class BobbdraManager : MonoBehaviour
     [Header("Intro Animation")]
     [SerializeField] private AnimationClip roarClip;
     [SerializeField] private float introRiseDistance = 10f;
-    [SerializeField] private float introRiseDuration = 5f;
+    [SerializeField] private float introRiseDuration = 1.5f;
     
     [Header("Annoying Head")]
     [SerializeField] private GameObject annoyingHeadPrefab;
     [SerializeField] private float annoyingHeadSpawnDelay = 3f;
+    
+    [Header("Invincibility During Attacks")]
+    [SerializeField] private float minHealthDuringProtectedAttacks = 1f;
     
     private float currentHealth;
     private BossFightState currentState = BossFightState.Idle;
@@ -79,6 +82,7 @@ public class BobbdraManager : MonoBehaviour
     private BobbdraAttackPattern[] attackPatterns;
     private int lastPatternIndex = -1;
     private bool isExecutingPattern;
+    private BobbdraAttackPattern currentExecutingPattern;
     
     private Renderer[] bossRenderers;
     private Material[] originalMaterials;
@@ -87,6 +91,8 @@ public class BobbdraManager : MonoBehaviour
     private BossHealthBarUI healthBarUI;
     private bool isInvincible;
     private AnnoyingHeadController spawnedAnnoyingHead;
+    private bool isRising;
+    private bool riseComplete;
     
     public BossFightState CurrentState => currentState;
     public float HealthPercentage => currentHealth / maxHealth;
@@ -150,9 +156,51 @@ public class BobbdraManager : MonoBehaviour
     private void Start()
     {
         currentState = BossFightState.Intro;
-        Debug.Log("Bobbdra initialized in Intro state - waiting for boss fight to start");
+        Debug.Log("Bobbdra initialized in Intro state");
         
+        DisableAllHeadAnimations();
+        
+        isRising = true;
+        riseComplete = false;
         StartCoroutine(RiseFromBelow());
+    }
+    
+    private void DisableAllHeadAnimations()
+    {
+        for (int i = 0; i < heads.Length; i++)
+        {
+            if (heads[i] != null)
+            {
+                Animator[] animators = heads[i].GetComponentsInChildren<Animator>();
+                foreach (Animator anim in animators)
+                {
+                    if (anim != null)
+                    {
+                        anim.enabled = false;
+                        Debug.Log($"Bobbdra: Disabled Animator on {anim.gameObject.name}");
+                    }
+                }
+            }
+        }
+    }
+    
+    private void EnableAllHeadAnimations()
+    {
+        for (int i = 0; i < heads.Length; i++)
+        {
+            if (heads[i] != null)
+            {
+                Animator[] animators = heads[i].GetComponentsInChildren<Animator>();
+                foreach (Animator anim in animators)
+                {
+                    if (anim != null)
+                    {
+                        anim.enabled = true;
+                        Debug.Log($"Bobbdra: Enabled Animator on {anim.gameObject.name}");
+                    }
+                }
+            }
+        }
     }
     
     private IEnumerator RiseFromBelow()
@@ -162,8 +210,6 @@ public class BobbdraManager : MonoBehaviour
         transform.position = startPosition;
         
         Debug.Log($"Bobbdra: Starting rise from {startPosition.y} to {spawnPosition.y}");
-        
-        yield return new WaitForSeconds(1.5f);
         
         float elapsedTime = 0f;
         while (elapsedTime < introRiseDuration)
@@ -176,7 +222,11 @@ public class BobbdraManager : MonoBehaviour
         }
         
         transform.position = spawnPosition;
-        Debug.Log("Bobbdra: Rise complete, waiting for fight to start");
+        isRising = false;
+        riseComplete = true;
+        Debug.Log("Bobbdra: Rise complete, at BobbdraSpawnPoint - Starting roar immediately");
+        
+        StartCoroutine(PlayRoarSequence());
     }
     
     public void StartBossFight()
@@ -189,21 +239,11 @@ public class BobbdraManager : MonoBehaviour
     
     private IEnumerator IntroSequence()
     {
-        Debug.Log("Bobbdra: Starting intro sequence");
+        Debug.Log("Bobbdra: Intro sequence - Waiting for roar to complete");
         
-        if (roarClip != null)
-        {
-            Debug.Log("Bobbdra: Playing roar animation on all heads");
-            yield return StartCoroutine(PlayRoarOnAllHeads());
-        }
-        else
-        {
-            Debug.LogWarning("Bobbdra: Roar animation clip not assigned");
-        }
+        yield return new WaitUntil(() => currentState == BossFightState.Combat);
         
-        Debug.Log("Bobbdra: Entering combat state");
-        currentState = BossFightState.Combat;
-        attackTimer = 0f;
+        Debug.Log("Bobbdra: Roar complete, starting combat");
         
         if (annoyingHeadPrefab != null)
         {
@@ -211,16 +251,8 @@ public class BobbdraManager : MonoBehaviour
         }
     }
     
-    private IEnumerator PlayRoarOnAllHeads()
+    private IEnumerator PlayRoarSequence()
     {
-        for (int i = 0; i < heads.Length; i++)
-        {
-            if (heads[i] != null)
-            {
-                heads[i].PrepareForAttack();
-            }
-        }
-        
         for (int i = 0; i < heads.Length; i++)
         {
             if (heads[i] != null)
@@ -234,6 +266,11 @@ public class BobbdraManager : MonoBehaviour
         
         yield return new WaitForSeconds(roarDuration);
         
+        Debug.Log("Bobbdra: Roar complete, enabling animators");
+        EnableAllHeadAnimations();
+        
+        yield return null;
+        
         for (int i = 0; i < heads.Length; i++)
         {
             if (heads[i] != null)
@@ -242,7 +279,14 @@ public class BobbdraManager : MonoBehaviour
             }
         }
         
-        Debug.Log("Bobbdra: Roar animation complete");
+        Debug.Log("Bobbdra: All heads reset to idle after roar, entering combat");
+        currentState = BossFightState.Combat;
+        attackTimer = 0f;
+        
+        if (annoyingHeadPrefab != null)
+        {
+            StartCoroutine(SpawnAnnoyingHead());
+        }
     }
     
     private void Update()
@@ -344,10 +388,12 @@ public class BobbdraManager : MonoBehaviour
     
     private IEnumerator ExecutePatternWithCompletion(BobbdraAttackPattern pattern)
     {
+        currentExecutingPattern = pattern;
         pattern.ExecutePattern();
         
         yield return new WaitUntil(() => pattern.IsPatternComplete());
         
+        currentExecutingPattern = null;
         isExecutingPattern = false;
     }
     
@@ -374,8 +420,18 @@ public class BobbdraManager : MonoBehaviour
             return;
         }
         
+        bool isDuringProtectedAttack = IsExecutingProtectedAttack();
+        
         currentHealth -= damage;
-        currentHealth = Mathf.Max(0f, currentHealth);
+        
+        if (isDuringProtectedAttack)
+        {
+            currentHealth = Mathf.Max(minHealthDuringProtectedAttacks, currentHealth);
+        }
+        else
+        {
+            currentHealth = Mathf.Max(0f, currentHealth);
+        }
         
         Debug.Log($"Bobbdra took {damage} damage. Current health: {currentHealth}/{maxHealth}");
         
@@ -398,10 +454,20 @@ public class BobbdraManager : MonoBehaviour
         
         CheckPhaseTransition();
         
-        if (currentHealth <= 0f)
+        if (currentHealth <= 0f && !isDuringProtectedAttack)
         {
             StartDeathSequence();
         }
+    }
+    
+    private bool IsExecutingProtectedAttack()
+    {
+        if (currentExecutingPattern == null)
+        {
+            return false;
+        }
+        
+        return currentExecutingPattern is SideAmbushPattern || currentExecutingPattern is DownAttackPattern;
     }
     
     public void SetHealthBarUI(BossHealthBarUI ui)
@@ -526,6 +592,12 @@ public class BobbdraManager : MonoBehaviour
         if (spawnedAnnoyingHead != null)
         {
             spawnedAnnoyingHead.Die();
+        }
+        
+        if (healthBarUI != null)
+        {
+            healthBarUI.Hide();
+            Debug.Log("Bobbdra: Health bar fading out on defeat");
         }
         
         if (deathSequence != null)

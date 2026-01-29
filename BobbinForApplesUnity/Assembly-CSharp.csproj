@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\BobbdraHeadShootable.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\Boss UI\BossHealthBarUI.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\BubbleParticleEffect.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioEventType.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Audio\AreaMusicTrigger.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Assets\Rocks and Boulders 2\Shaders\RotateGameObject.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\AreaGimmickController.cs" />
+    <Compile Include="Assets\Scripts\UI\TypingTextUI.cs" />
     <Compile Include="Assets\Scripts\Visual Stylization\Motion Blurs\GhostEffectDebugger.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
@@ -143,11 +145,14 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Scripts\Audio\MusicTrack.cs" />
+    <Compile Include="Assets\Scripts\UI\ScreenFadeController.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 3\Area3SilhouetteController.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossHeartbeatSound.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\Scripts\BobberNeckLookAt.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\AnnoyingHeadController.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 4\Area4BossTransitionManager.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossProjectile.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
@@ -155,15 +160,19 @@
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\PlayerShootingController.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\SimpleParticleEffect.cs" />
+    <Compile Include="Assets\Scripts\BubbleParticleSetup.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\ArenaOutlineDrawAnimation.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 3\ObstacleSilhouetteController.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\ExclamationMarkIndicator.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossMovement.cs" />
     <Compile Include="Assets\Scripts\Visual Stylization\Motion Blurs\GhostSpriteEffect.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 4\Area4ExitTeleporter.cs" />
     <Compile Include="Assets\Scripts\Audio\BossAudioIntegration.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\BossEntryAnimation.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\DamageFlash.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\BobbdraHeadDamage.cs" />
+    <Compile Include="Assets\Scripts\Gimmicks\Area 5\Boss\BossCinematicSequence.cs" />
     <Compile Include="Assets\Scripts\Gimmicks\Area 5\Bobbdra Fight\SimpleAnimationPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +189,7 @@
     <None Include="Assets\NatureManufacture Assets\Object Shaders\Standard_Metalic_UV_Free_Faces.shader" />
     <None Include="Assets\Art\dungeonmode\dungeonmode\rexpaint\readme-rexpaint.txt" />
     <None Include="Assets\Rocks and Boulders 2\Shaders\Blend SM2.shader" />
+    <None Include="Assets\Art\Super Pixel Effects Mini Pack 1\Super Pixel Effects Mini Pack 1\spritesheet\fx2_electric_burst_large_violet\spritesheet.txt" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Steam Deck\Fonts\kenney_input_steam_deck_map.txt" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Switch\nintendo-switch_sheet_double.xml" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Flairs\Fonts\kenney_input_flairs_map.txt" />
@@ -210,13 +220,16 @@
     <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Gamecube\nintendo-gamecube_sheet_double.xml" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_Lit_Top_Cover_Specular.shader" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Flairs\flairs_sheet_double.xml" />
+    <None Include="Assets\Art\Super Pixel Effects Mini Pack 1\Super Pixel Effects Mini Pack 1\spritesheet\fx2_impact_shock_large_brown\spritesheet.txt" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Steam Controller\steam-controller_sheet_default.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\Art\dungeonmode\dungeonmode\playscii\readme-playscii.txt" />
     <None Include="Assets\Rocks and Boulders 2\Shaders\Blend SM3.shader" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Playdate\playdate_sheet_default.xml" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo WiiU\nintendo-wiiu_sheet_default.xml" />
+    <None Include="Assets\Art\Super Pixel Effects Mini Pack 1\Super Pixel Effects Mini Pack 1\spritesheet\fx1_splatter_small_red\spritesheet.txt" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Wii\nintendo-wii_sheet_double.xml" />
+    <None Include="Assets\Art\Super Pixel Effects Mini Pack 1\Super Pixel Effects Mini Pack 1\license.txt" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Xbox Series\Fonts\kenney_input_xbox_series_map.txt" />
     <None Include="Assets\Shaders\CelShaded.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
@@ -237,8 +250,10 @@
     <None Include="Assets\Art\kenney_input-prompts_1.4\Generic\generic_sheet_double.xml" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Steam Deck\steam-deck_sheet_double.xml" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Xbox Series\xbox-series_sheet_double.xml" />
+    <None Include="Assets\Art\Super Pixel Effects Mini Pack 1\Super Pixel Effects Mini Pack 1\readme.txt" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\PlayStation Series\Fonts\kenney_input_playstation_series_map.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Art\Super Pixel Effects Mini Pack 1\Super Pixel Effects Mini Pack 1\spritesheet\fx1_explosion_small_orange\spritesheet.txt" />
     <None Include="Assets\NatureManufacture Assets\Object Shaders\NM_indirect.cginc" />
     <None Include="Assets\Art\Hearts\Hearts\PNG\health_bar\info.txt" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Switch\nintendo-switch_sheet_default.xml" />
@@ -265,6 +280,7 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\Shaders\Area4RadialLighting.shader" />
     <None Include="Assets\Art\kenney_input-prompts_1.4\Nintendo Switch 2\nintendo-switch-2_sheet_double.xml" />
+    <None Include="Assets\Logs.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -1,0 +1,125 @@
+Spawning preview boss at (0.30, -824.34, 0.00)
+UnityEngine.Debug:Log (object)
+BobbdraDeathSequence/<SpawnBossDuringAnimation>d__23:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraDeathSequence.cs:143)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+Boss materials initialized. Found 5 renderers. Flash color: RGBA(1.000, 0.000, 0.000, 1.000)
+UnityEngine.Debug:Log (object)
+BossController:Awake () (at Assets/Scripts/Gimmicks/Area 5/Boss/BossController.cs:86)
+UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion)
+BobbdraDeathSequence/<SpawnBossDuringAnimation>d__23:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraDeathSequence.cs:144)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+GhostSpriteEffect on Boss(Clone): Initialized pool with 10 ghosts. AlwaysActive=True
+UnityEngine.Debug:Log (object)
+GhostSpriteEffect:InitializeGhostPool () (at Assets/Scripts/Visual Stylization/Motion Blurs/GhostSpriteEffect.cs:61)
+GhostSpriteEffect:Awake () (at Assets/Scripts/Visual Stylization/Motion Blurs/GhostSpriteEffect.cs:43)
+UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion)
+BobbdraDeathSequence/<SpawnBossDuringAnimation>d__23:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraDeathSequence.cs:144)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+GhostSpriteEffect on Bobber_Heart: Initialized pool with 8 ghosts. AlwaysActive=True
+UnityEngine.Debug:Log (object)
+GhostSpriteEffect:InitializeGhostPool () (at Assets/Scripts/Visual Stylization/Motion Blurs/GhostSpriteEffect.cs:61)
+GhostSpriteEffect:Awake () (at Assets/Scripts/Visual Stylization/Motion Blurs/GhostSpriteEffect.cs:43)
+UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion)
+BobbdraDeathSequence/<SpawnBossDuringAnimation>d__23:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraDeathSequence.cs:144)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+Found BossCinematicSequence: True
+UnityEngine.Debug:Log (object)
+BobbdraDeathSequence/<SpawnBossDuringAnimation>d__23:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraDeathSequence.cs:155)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+BossCinematicSequence assigned to BossEntryAnimation
+UnityEngine.Debug:Log (object)
+BobbdraDeathSequence/<SpawnBossDuringAnimation>d__23:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraDeathSequence.cs:163)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+BossEntryAnimation: PlayEntryAnimation called with arena center (0.00, 0.00, 0.00), cinematicSequence: True, triggerCinematic: True
+UnityEngine.Debug:Log (object)
+BossEntryAnimation:PlayEntryAnimation (UnityEngine.Vector3) (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:37)
+BobbdraDeathSequence/<SpawnBossDuringAnimation>d__23:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraDeathSequence.cs:167)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+BossEntryAnimation: EntrySequence started
+UnityEngine.Debug:Log (object)
+BossEntryAnimation/<EntrySequence>d__13:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:43)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+BossEntryAnimation:PlayEntryAnimation (UnityEngine.Vector3) (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:38)
+BobbdraDeathSequence/<SpawnBossDuringAnimation>d__23:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraDeathSequence.cs:167)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+BossEntryAnimation: ScaleUp started
+UnityEngine.Debug:Log (object)
+BossEntryAnimation/<ScaleUp>d__14:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:72)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+BossEntryAnimation/<EntrySequence>d__13:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:46)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+BossEntryAnimation:PlayEntryAnimation (UnityEngine.Vector3) (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:38)
+BobbdraDeathSequence/<SpawnBossDuringAnimation>d__23:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraDeathSequence.cs:167)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+BossEntryAnimation: ScaleUp complete
+UnityEngine.Debug:Log (object)
+BossEntryAnimation/<ScaleUp>d__14:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:83)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+BossEntryAnimation: ShootOut started
+UnityEngine.Debug:Log (object)
+BossEntryAnimation/<ShootOut>d__15:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:90)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+BossEntryAnimation/<EntrySequence>d__13:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:48)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+Projectile hit: Head (Tag: Boss) at position (-10.67, -825.76, -0.10), Projectile at (-9.75, -821.92, 0.00)
+UnityEngine.Debug:Log (object)
+PlayerProjectile:OnTriggerEnter (UnityEngine.Collider) (at Assets/Scripts/Gimmicks/Area 5/PlayerProjectile.cs:37)
+
+BossEntryAnimation: ShootOut complete
+UnityEngine.Debug:Log (object)
+BossEntryAnimation/<ShootOut>d__15:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:106)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+BossEntryAnimation: RiseToArenaCenter started, target: (0.00, 0.00, 0.00)
+UnityEngine.Debug:Log (object)
+BossEntryAnimation/<RiseToArenaCenter>d__16:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:111)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+BossEntryAnimation/<EntrySequence>d__13:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BossEntryAnimation.cs:50)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+Projectile hit: Head (Tag: Boss) at position (-10.65, -834.41, -0.10), Projectile at (-6.78, -833.64, 0.00)
+UnityEngine.Debug:Log (object)
+PlayerProjectile:OnTriggerEnter (UnityEngine.Collider) (at Assets/Scripts/Gimmicks/Area 5/PlayerProjectile.cs:37)
+
+Boss materials initialized. Found 5 renderers. Flash color: RGBA(1.000, 0.000, 0.000, 1.000)
+UnityEngine.Debug:Log (object)
+BossController:Awake () (at Assets/Scripts/Gimmicks/Area 5/Boss/BossController.cs:86)
+UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion)
+BobbdraManager:SpawnHeart () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraManager.cs:565)
+BobbdraManager/<DeathSequence>d__85:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraManager.cs:550)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+GhostSpriteEffect on Boss(Clone): Initialized pool with 10 ghosts. AlwaysActive=True
+UnityEngine.Debug:Log (object)
+GhostSpriteEffect:InitializeGhostPool () (at Assets/Scripts/Visual Stylization/Motion Blurs/GhostSpriteEffect.cs:61)
+GhostSpriteEffect:Awake () (at Assets/Scripts/Visual Stylization/Motion Blurs/GhostSpriteEffect.cs:43)
+UnityEngine.Object:Instantiate<UnityEngine.GameObject> (UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Quaternion)
+BobbdraManager:SpawnHeart () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraManager.cs:565)
+BobbdraManager/<DeathSequence>d__85:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraManager.cs:550)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+Bobbdra defeated! Starting Phase 2 transition...
+UnityEngine.Debug:Log (object)
+BossArenaManager:OnBobbdraPhaseComplete () (at Assets/Scripts/Gimmicks/Area 5/Boss/BossArenaManager.cs:396)
+BobbdraManager/<DeathSequence>d__85:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraManager.cs:555)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+=== PHASE 2 TRANSITION START ===
+UnityEngine.Debug:Log (object)
+BossArenaManager/<TransitionToPhase2>d__46:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Boss/BossArenaManager.cs:402)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+BossArenaManager:OnBobbdraPhaseComplete () (at Assets/Scripts/Gimmicks/Area 5/Boss/BossArenaManager.cs:397)
+BobbdraManager/<DeathSequence>d__85:MoveNext () (at Assets/Scripts/Gimmicks/Area 5/Bobbdra Fight/BobbdraManager.cs:555)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+

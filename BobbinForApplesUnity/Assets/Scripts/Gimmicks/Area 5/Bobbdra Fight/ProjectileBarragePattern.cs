@@ -220,6 +220,11 @@ public class ProjectileBarragePattern : BobbdraAttackPattern
     {
         if (simultaneousFire)
         {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(AudioEventType.BossProjectileFire, head.transform.position);
+            }
+            
             if (projectilesPerVolley == 1)
             {
                 Vector3 direction = GetDirectionToPlayer(head);
@@ -250,6 +255,11 @@ public class ProjectileBarragePattern : BobbdraAttackPattern
     {
         for (int i = 0; i < projectilesPerVolley; i++)
         {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(AudioEventType.BossProjectileFire, head.transform.position);
+            }
+            
             Vector3 direction = GetDirectionToPlayer(head);
             head.FireProjectile(direction, projectileSpeed, projectileScale);
             

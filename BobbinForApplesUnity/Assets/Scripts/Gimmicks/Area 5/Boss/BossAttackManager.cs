@@ -236,6 +236,11 @@ public class BossAttackManager : MonoBehaviour
             {
                 projectileScript.Initialize(direction, speed, bossProjectilePool);
             }
+            
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(AudioEventType.BulletHellProjectileFire, position);
+            }
         }
     }
     

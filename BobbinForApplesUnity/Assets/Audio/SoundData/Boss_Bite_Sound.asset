@@ -12,12 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3e1d3f7f8732a4e8a1f399a657d654, type: 3}
   m_Name: Boss_Bite_Sound
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
-  clip: {fileID: 0}
-  volume: 0.7
+  clip: {fileID: 8300000, guid: 0d77ea1e8a7034e4abed1f162305c2de, type: 3}
+  volume: 0.665
   pitch: 1
-  startOffset: 0
+  startOffset: -4
   randomizePitch: 1
   pitchVariation: 0.15
-  is3DSound: 1
+  is3DSound: 0
   minDistance: 3
   maxDistance: 30
+  useReverb: 1
+  reverbZoneMix: 1
+  dryLevel: -459
+  room: -1000
+  roomHF: -100
+  reverbLevel: 659
+  reflectionsLevel: -10000
+  decayTime: 2.28
+  decayHFRatio: 0.83
+  density: 100
+  diffusion: 100

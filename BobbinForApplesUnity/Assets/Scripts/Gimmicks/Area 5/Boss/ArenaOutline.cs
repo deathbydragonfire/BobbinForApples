@@ -26,6 +26,7 @@ public class ArenaOutline : MonoBehaviour
     private void Start()
     {
         UpdateOutline();
+        lineRenderer.enabled = false;
     }
     
     private void InitializeLineRenderer()

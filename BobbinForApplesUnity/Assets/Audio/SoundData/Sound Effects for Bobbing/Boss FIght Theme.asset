@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3e1d3f7f8732a4e8a1f399a657d654, type: 3}
   m_Name: Boss FIght Theme
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
-  clip: {fileID: 8300000, guid: 870437433a1e89347a5a742e6987fe8c, type: 3}
-  volume: 1
+  clip: {fileID: 8300000, guid: 360f0272bbc25174997c1aa18ff46301, type: 3}
+  volume: 0.771
   pitch: 1
   startOffset: 0
   randomizePitch: 0
@@ -21,3 +21,14 @@ MonoBehaviour:
   is3DSound: 0
   minDistance: 1
   maxDistance: 50
+  useReverb: 0
+  reverbZoneMix: 1
+  dryLevel: 0
+  room: 0
+  roomHF: 0
+  reverbLevel: 0
+  reflectionsLevel: -10000
+  decayTime: 1.49
+  decayHFRatio: 0.83
+  density: 100
+  diffusion: 100

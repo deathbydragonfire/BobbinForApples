@@ -16,7 +16,17 @@ public enum AudioEventType
     BossSweep,
     BossDamage,
     BossDeath,
+    BossProjectileFire,
+    BossSideAmbush,
+    BossDownAttack,
+    BossDownAttackSecondLayer,
+    BossDownAttackThirdLayer,
+    BossHeartBeat,
+    BulletHellProjectileFire,
     
     AttackIndicator,
-    AttackHit
+    AttackHit,
+    
+    HealthPickup,
+    HealthSpawn
 }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3e1d3f7f8732a4e8a1f399a657d654, type: 3}
   m_Name: Boss Damage
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
-  clip: {fileID: 8300000, guid: 6d6ec26e1bd76c44795e8a9e3018944f, type: 3}
-  volume: 0.575
+  clip: {fileID: 8300000, guid: 653949a23b5cbd94f8d8b35bc2fb6c35, type: 3}
+  volume: 0.498
   pitch: 1
   startOffset: 0
   randomizePitch: 1
@@ -21,3 +21,14 @@ MonoBehaviour:
   is3DSound: 0
   minDistance: 1
   maxDistance: 50
+  useReverb: 0
+  reverbZoneMix: 1
+  dryLevel: 0
+  room: 0
+  roomHF: 0
+  reverbLevel: 0
+  reflectionsLevel: -10000
+  decayTime: 1.49
+  decayHFRatio: 0.83
+  density: 100
+  diffusion: 100

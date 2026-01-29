@@ -43,7 +43,16 @@ public class DownAttackPattern : BobbdraAttackPattern
         
         if (attackIndicator == null)
         {
-            attackIndicator = GameObject.Find("Down Attack Indicator");
+            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            foreach (GameObject obj in allObjects)
+            {
+                if (obj.name == "Down Attack Indicator" && obj.scene.IsValid())
+                {
+                    attackIndicator = obj;
+                    break;
+                }
+            }
+            
             if (attackIndicator == null)
             {
                 Debug.LogWarning("DownAttackPattern: Down Attack Indicator not found in scene");
@@ -167,12 +176,25 @@ public class DownAttackPattern : BobbdraAttackPattern
         attackInstance.transform.position = downAttackSpawnPoint.position;
         attackInstance.transform.rotation = downAttackSpawnPoint.rotation;
         
+        BubbleParticleEffect bubbleEffect = attackInstance.GetComponentInChildren<BubbleParticleEffect>();
+        if (bubbleEffect != null)
+        {
+            bubbleEffect.PlayBubbleEffect();
+        }
+        
         Animator attackAnimator = attackInstance.GetComponentInChildren<Animator>();
         
         if (attackAnimator != null)
         {
             attackAnimator.Rebind();
             attackAnimator.Play(ATTACK_ANIMATION_NAME, 0, 0f);
+            
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(AudioEventType.BossDownAttack, downAttackSpawnPoint.position);
+                AudioManager.Instance.PlaySound(AudioEventType.BossDownAttackSecondLayer, downAttackSpawnPoint.position);
+                AudioManager.Instance.PlaySound(AudioEventType.BossDownAttackThirdLayer, downAttackSpawnPoint.position);
+            }
         }
         else
         {

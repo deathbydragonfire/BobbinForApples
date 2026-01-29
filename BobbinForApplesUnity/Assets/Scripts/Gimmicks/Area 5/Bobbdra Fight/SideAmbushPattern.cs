@@ -197,6 +197,11 @@ public class SideAmbushPattern : BobbdraAttackPattern
             attackAnimator.enabled = true;
             attackAnimator.Rebind();
             attackAnimator.Play(ATTACK_ANIMATION_NAME, 0, 0f);
+            
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(AudioEventType.BossSideAmbush, spawnPoint.position);
+            }
         }
         else
         {

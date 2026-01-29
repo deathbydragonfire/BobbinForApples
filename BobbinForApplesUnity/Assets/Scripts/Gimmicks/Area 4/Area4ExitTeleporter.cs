@@ -6,6 +6,9 @@ public class Area4ExitTeleporter : MonoBehaviour
     [SerializeField] private Vector3 arenaSpawnPosition = new Vector3(0f, -800f, 0f);
     [SerializeField] private BossArenaManager bossArenaManager;
     
+    [Header("Transition Manager")]
+    [SerializeField] private Area4BossTransitionManager transitionManager;
+    
     [Header("Exit Detection")]
     [SerializeField] private float exitThreshold = 0.5f;
     
@@ -20,6 +23,11 @@ public class Area4ExitTeleporter : MonoBehaviour
         if (areaCollider == null)
         {
             Debug.LogError("Area4ExitTeleporter requires a BoxCollider component!");
+        }
+        
+        if (transitionManager == null)
+        {
+            transitionManager = FindFirstObjectByType<Area4BossTransitionManager>();
         }
     }
     
@@ -64,6 +72,19 @@ public class Area4ExitTeleporter : MonoBehaviour
     {
         hasTriggeredBoss = true;
         
+        if (transitionManager != null)
+        {
+            transitionManager.StartTransition(player, arenaSpawnPosition, bossArenaManager);
+        }
+        else
+        {
+            Debug.LogError("Area4BossTransitionManager not found! Using fallback teleport.");
+            FallbackTeleport(player);
+        }
+    }
+    
+    private void FallbackTeleport(GameObject player)
+    {
         Debug.Log($"Teleporting player to arena at {arenaSpawnPosition}");
         
         player.transform.position = arenaSpawnPosition;

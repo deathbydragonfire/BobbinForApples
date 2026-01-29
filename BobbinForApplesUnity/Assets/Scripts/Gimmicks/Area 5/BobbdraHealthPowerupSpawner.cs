@@ -123,6 +123,7 @@ public class BobbdraHealthPowerupSpawner : MonoBehaviour
         Vector3 spawnPosition = GetRandomSpawnPosition();
         
         GameObject powerup = Instantiate(healthPowerupPrefab, spawnPosition, Quaternion.identity);
+        AudioManager.Instance.PlaySound(AudioEventType.HealthSpawn, spawnPosition);
         Debug.Log($"BobbdraHealthPowerupSpawner: Phase {phase} health powerup spawned at {spawnPosition}");
     }
     

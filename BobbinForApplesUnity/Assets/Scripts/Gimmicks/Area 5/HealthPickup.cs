@@ -66,6 +66,8 @@ public class HealthPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySound(AudioEventType.HealthPickup, transform.position);
+            
             PlayerHealthUI healthUI = FindFirstObjectByType<PlayerHealthUI>();
             if (healthUI != null)
             {

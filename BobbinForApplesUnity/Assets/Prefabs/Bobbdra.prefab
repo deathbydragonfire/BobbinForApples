@@ -810,7 +810,7 @@ Transform:
   m_GameObject: {fileID: 1603932987262175941}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2700005, y: 27.519999, z: 0}
+  m_LocalPosition: {x: 0.4, y: 27.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -914,7 +914,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 9.191644
+  m_Radius: 8.33
   m_Center: {x: -0.00058364874, y: 0.04000378, z: 0}
 --- !u!114 &5852805107282561795
 MonoBehaviour:
@@ -2383,7 +2383,8 @@ Transform:
   m_LocalPosition: {x: 3.9834998, y: 4.4525075, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4933295580563300968}
   m_Father: {fileID: 1900447174146921701}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5252720758811996876
@@ -4372,6 +4373,37 @@ PolygonCollider2D:
       - {x: -3.72, y: -7.18}
       - {x: -3.4399998, y: -7.14}
   m_UseDelaunayMesh: 1
+--- !u!1 &7843965110781095620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4933295580563300968}
+  m_Layer: 0
+  m_Name: Heart Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4933295580563300968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7843965110781095620}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.8315914, w: 0.555388}
+  m_LocalPosition: {x: -1.668864, y: -0.75634897, z: 0.2}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1980197243508908985}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8040894719731405320
 GameObject:
   m_ObjectHideFlags: 0
@@ -4730,7 +4762,7 @@ MonoBehaviour:
   phase1SequentialBiteWeight: 50
   phase1ProjectileBarrageWeight: 50
   phase1SideAmbushWeight: 0
-  phase1DownAttackWeight: 0
+  phase1DownAttackWeight: 15
   phase2SequentialBiteWeight: 40
   phase2ProjectileBarrageWeight: 40
   phase2SideAmbushWeight: 15
@@ -4750,7 +4782,7 @@ MonoBehaviour:
   centerDeathClip: {fileID: 7400000, guid: 36c94b1bcf4caac459e69540aa602ccb, type: 2}
   roarClip: {fileID: 7400000, guid: 6b81ba9608e766d49a58c49892f79007, type: 2}
   introRiseDistance: 25
-  introRiseDuration: 15
+  introRiseDuration: 3
   annoyingHeadPrefab: {fileID: 8164278490300343114, guid: 815143968574a434db201fb2e3b8bad9, type: 3}
   annoyingHeadSpawnDelay: 3
 --- !u!65 &4101892930358512660
@@ -4835,6 +4867,11 @@ MonoBehaviour:
   centerHeadAnimator: {fileID: 476011198391398568}
   sinkDistance: -25
   sinkSpeed: 10
+  bossPreviewPrefab: {fileID: 4885276976664878291, guid: 51b0ea48f95271f498454dcda23c8e48, type: 3}
+  heartSpawnPoint: {fileID: 4933295580563300968}
+  arenaCenter: {fileID: 0}
+  bossSpawnDelay: 0.5
+  cinematicSequence: {fileID: 0}
 --- !u!114 &2109429032029775479
 MonoBehaviour:
   m_ObjectHideFlags: 0

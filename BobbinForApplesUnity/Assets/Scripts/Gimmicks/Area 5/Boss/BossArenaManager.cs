@@ -6,7 +6,7 @@ public class BossArenaManager : MonoBehaviour
     [Header("Boss Setup")]
     [SerializeField] private GameObject bossPrefab;
     [SerializeField] private Transform bossSpawnPoint;
-    [SerializeField] private Vector3 arenaCenter = Vector3.zero;
+    [SerializeField] private Transform arenaCenter;
     
     [Header("Phase 1: Bobbdra")]
     [SerializeField] private GameObject bobbdraPrefab;
@@ -37,10 +37,14 @@ public class BossArenaManager : MonoBehaviour
     [SerializeField] private ArenaPlayerBoundary playerBoundary;
     [SerializeField] private ArenaOutline arenaOutline;
     [SerializeField] private ArenaProjectileBoundary projectileBoundary;
+    [SerializeField] private ArenaOutlineDrawAnimation arenaDrawAnimation;
     
     [Header("Projectile Pools")]
     [SerializeField] private ProjectilePool playerProjectilePool;
     [SerializeField] private ProjectilePool bossProjectilePool;
+    
+    [Header("Arena Effects")]
+    [SerializeField] private BubbleParticleSetup bubbleParticles;
     
     private const string PLAYER_TAG = "Player";
     
@@ -52,6 +56,9 @@ public class BossArenaManager : MonoBehaviour
     private Vector3 originalCameraPosition;
     private bool cameraTransitioning;
     private Vector3 targetCameraPosition;
+    private bool disableAutoTrigger;
+    private bool skipCameraIntro;
+    private bool skipOutlineShow;
     
     private enum BossFightPhase { Bobbdra, BulletHell }
     private BossFightPhase currentPhase = BossFightPhase.Bobbdra;
@@ -152,6 +159,11 @@ public class BossArenaManager : MonoBehaviour
             {
                 bobbdraManager.StartBossFight();
             }
+            
+            if (bubbleParticles != null)
+            {
+                bubbleParticles.StartEmission();
+            }
         }
         else if (currentPhase == BossFightPhase.BulletHell && spawnedBoss != null)
         {
@@ -165,7 +177,7 @@ public class BossArenaManager : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(PLAYER_TAG) && !bossSpawned)
+        if (other.CompareTag(PLAYER_TAG) && !bossSpawned && !disableAutoTrigger)
         {
             TriggerBossEncounter();
         }
@@ -186,13 +198,56 @@ public class BossArenaManager : MonoBehaviour
         bossSpawned = true;
         fightActive = true;
         
-        if (MusicManager.Instance != null)
+        StartCoroutine(BossEncounterSequence());
+    }
+    
+    public void DisableAutoTrigger()
+    {
+        disableAutoTrigger = true;
+        Debug.Log("Boss auto-trigger disabled (using transition system)");
+    }
+    
+    public void StartCameraZoomDuringFade(float fadeDuration)
+    {
+        skipCameraIntro = true;
+        skipOutlineShow = true;
+        StartCoroutine(CameraZoomDuringFade(fadeDuration));
+    }
+    
+    private IEnumerator CameraZoomDuringFade(float fadeDuration)
+    {
+        if (mainCamera == null) yield break;
+        
+        if (cameraFollow != null)
         {
-            MusicManager.Instance.PlayMusic("Boss Fight", 2f);
-            Debug.Log("Boss fight music triggered!");
+            cameraFollow.enabled = false;
         }
         
-        StartCoroutine(BossEncounterSequence());
+        Vector3 arenaCenterPos = arenaCenter != null ? arenaCenter.position : Vector3.zero;
+        Vector3 arenaPosition = new Vector3(arenaCenterPos.x, arenaCenterPos.y, mainCamera.transform.position.z);
+        Vector3 startPosition = mainCamera.transform.position;
+        float startSize = mainCamera.orthographicSize;
+        
+        Debug.Log($"Camera zoom during fade: Moving from {startPosition} to {arenaPosition}, size {startSize} to {bossArenaCameraSize}");
+        
+        float elapsed = 0f;
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / fadeDuration;
+            float smoothT = Mathf.SmoothStep(0f, 1f, t);
+            
+            mainCamera.transform.position = Vector3.Lerp(startPosition, arenaPosition, smoothT);
+            mainCamera.orthographicSize = Mathf.Lerp(startSize, bossArenaCameraSize, smoothT);
+            
+            yield return null;
+        }
+        
+        mainCamera.transform.position = arenaPosition;
+        mainCamera.orthographicSize = bossArenaCameraSize;
+        targetCameraPosition = arenaPosition;
+        
+        Debug.Log("Camera zoom during fade complete");
     }
     
     private IEnumerator BossEncounterSequence()
@@ -216,14 +271,21 @@ public class BossArenaManager : MonoBehaviour
             playerBoundary.EnableBoundary();
         }
         
-        if (arenaOutline != null)
+        if (arenaOutline != null && !skipOutlineShow)
         {
             arenaOutline.ShowOutline();
         }
         
         yield return new WaitForSeconds(0.3f);
         
-        yield return StartCoroutine(CameraIntroSequence());
+        if (!skipCameraIntro)
+        {
+            yield return StartCoroutine(CameraIntroSequence());
+        }
+        else
+        {
+            Debug.Log("Skipping camera intro sequence (already done during fade)");
+        }
         
         if (uiManager != null)
         {
@@ -243,7 +305,8 @@ public class BossArenaManager : MonoBehaviour
             cameraFollow.enabled = false;
         }
         
-        Vector3 arenaZoomPosition = new Vector3(arenaCenter.x, arenaCenter.y, mainCamera.transform.position.z);
+        Vector3 arenaCenterPos = arenaCenter != null ? arenaCenter.position : Vector3.zero;
+        Vector3 arenaZoomPosition = new Vector3(arenaCenterPos.x, arenaCenterPos.y, mainCamera.transform.position.z);
         Vector3 startPosition = mainCamera.transform.position;
         float startSize = mainCamera.orthographicSize;
         
@@ -268,7 +331,7 @@ public class BossArenaManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         Debug.Log("Camera intro: Zooming back to arena view");
-        Vector3 arenaPosition = new Vector3(arenaCenter.x, arenaCenter.y, mainCamera.transform.position.z);
+        Vector3 arenaPosition = new Vector3(arenaCenterPos.x, arenaCenterPos.y, mainCamera.transform.position.z);
         elapsed = 0f;
         float zoomOutDuration = 2f;
         while (elapsed < zoomOutDuration)
@@ -307,17 +370,37 @@ public class BossArenaManager : MonoBehaviour
             return;
         }
         
-        Vector3 spawnPosition = bossSpawnPoint != null ? bossSpawnPoint.position : arenaCenter;
-        Debug.Log($"Boss spawn calculation - bossSpawnPoint: {(bossSpawnPoint != null ? bossSpawnPoint.position.ToString() : "null")}, arenaCenter: {arenaCenter}, final spawnPosition before Z: {spawnPosition}");
+        Vector3 arenaCenterPos = arenaCenter != null ? arenaCenter.position : Vector3.zero;
+        Vector3 spawnPosition = bossSpawnPoint != null ? bossSpawnPoint.position : arenaCenterPos;
+        Debug.Log($"Boss spawn calculation - bossSpawnPoint: {(bossSpawnPoint != null ? bossSpawnPoint.position.ToString() : "null")}, arenaCenter: {(arenaCenter != null ? arenaCenter.position.ToString() : "null")}, final spawnPosition before Z: {spawnPosition}");
         spawnPosition.z = 0f;
         
         Debug.Log($"Final boss spawn position: {spawnPosition}");
         spawnedBoss = Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
         
         BossMovement bossMovement = spawnedBoss.GetComponent<BossMovement>();
-        if (bossMovement != null)
+        if (bossMovement != null && arenaCenter != null)
         {
-            bossMovement.SetArenaCenter(arenaCenter);
+            bossMovement.SetArenaCenter(arenaCenter.position);
+            
+            if (arenaOutline != null)
+            {
+                BoxCollider arenaCollider = arenaOutline.GetComponent<BoxCollider>();
+                if (arenaCollider == null && arenaDrawAnimation != null)
+                {
+                    arenaCollider = arenaDrawAnimation.GetComponent<BoxCollider>();
+                }
+                
+                if (arenaCollider != null)
+                {
+                    bossMovement.SetArenaCollider(arenaCollider);
+                    Debug.Log("Arena collider assigned to boss movement");
+                }
+                else
+                {
+                    Debug.LogWarning("Arena collider not found!");
+                }
+            }
         }
         
         BossController bossController = spawnedBoss.GetComponent<BossController>();
@@ -353,7 +436,8 @@ public class BossArenaManager : MonoBehaviour
             return;
         }
         
-        Vector3 spawnPosition = bobbdraSpawnPoint != null ? bobbdraSpawnPoint.position : new Vector3(arenaCenter.x, arenaCenter.y - 4f, 0f);
+        Vector3 arenaCenterPos = arenaCenter != null ? arenaCenter.position : Vector3.zero;
+        Vector3 spawnPosition = bobbdraSpawnPoint != null ? bobbdraSpawnPoint.position : new Vector3(arenaCenterPos.x, arenaCenterPos.y - 4f, 0f);
         spawnPosition.z = 0f;
         
         Debug.Log($"Bobbdra spawn position: {spawnPosition}");
@@ -391,6 +475,12 @@ public class BossArenaManager : MonoBehaviour
         Debug.Log("=== PHASE 2 TRANSITION START ===");
         currentPhase = BossFightPhase.BulletHell;
         
+        if (MusicManager.Instance != null)
+        {
+            Debug.Log("Starting music transition: TitleCard -> Bullet Hell (3 second fade)");
+            MusicManager.Instance.PlayMusic("Bullet Hell", 3f);
+        }
+        
         if (playerShooting != null)
         {
             playerShooting.DisableShooting();
@@ -416,30 +506,61 @@ public class BossArenaManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
         
-        Debug.Log("Spawning Phase 2 bullet hell boss...");
-        SpawnBoss();
+        Debug.Log("=== PHASE 2 TRANSITION COMPLETE - Boss will spawn via cinematic ===");
+    }
+    
+    public void OnBossCinematicComplete(GameObject boss)
+    {
+        Debug.Log("Boss cinematic complete, finalizing boss setup");
         
-        yield return new WaitForSeconds(0.5f);
+        spawnedBoss = boss;
         
-        Debug.Log("Starting camera intro for Phase 2...");
-        yield return StartCoroutine(CameraIntroSequence());
+        BossController bossController = spawnedBoss.GetComponent<BossController>();
+        BossAttackManager attackManager = spawnedBoss.GetComponent<BossAttackManager>();
+        
+        if (attackManager != null)
+        {
+            attackManager.SetProjectilePool(bossProjectilePool);
+            attackManager.SetPlayer(player);
+        }
         
         if (uiManager != null)
         {
-            BossController bossController = spawnedBoss != null ? spawnedBoss.GetComponent<BossController>() : null;
-            if (bossController != null)
+            BossHealthBarUI healthBar = uiManager.GetHealthBarUI();
+            if (healthBar != null && bossController != null)
             {
-                BossHealthBarUI healthBar = uiManager.GetHealthBarUI();
-                if (healthBar != null)
-                {
-                    healthBar.RefillHealth(400f, 3f);
-                    Debug.Log("Phase 2 boss health bar refilling over 3 seconds");
-                }
-                uiManager.ShowHealthUI();
+                bossController.SetHealthBarUI(healthBar);
+                StartCoroutine(RefillHealthBarThenChangeTitle(healthBar));
             }
         }
         
-        Debug.Log("=== PHASE 2 TRANSITION COMPLETE ===");
+        if (playerShooting != null)
+        {
+            playerShooting.EnableShooting();
+        }
+        
+        if (bossController != null)
+        {
+            bossController.StartCombat();
+        }
+        
+        Debug.Log("Boss combat started!");
+    }
+    
+    private IEnumerator RefillHealthBarThenChangeTitle(BossHealthBarUI healthBar)
+    {
+        healthBar.Initialize(0f);
+        healthBar.Show();
+        
+        yield return new WaitForSeconds(1f);
+        
+        healthBar.RefillHealth(400f, 3f);
+        Debug.Log("Boss health bar refilling");
+        
+        yield return new WaitForSeconds(3f);
+        
+        healthBar.ChangeTitle("The Heart of the Beast", 0.05f);
+        Debug.Log("Boss title changing to 'The Heart of the Beast'");
     }
     
     private void TransitionCameraToArena()
@@ -448,7 +569,8 @@ public class BossArenaManager : MonoBehaviour
         
         if (fixCameraToArena)
         {
-            targetCameraPosition = new Vector3(arenaCenter.x, arenaCenter.y, mainCamera.transform.position.z);
+            Vector3 arenaCenterPos = arenaCenter != null ? arenaCenter.position : Vector3.zero;
+            targetCameraPosition = new Vector3(arenaCenterPos.x, arenaCenterPos.y, mainCamera.transform.position.z);
             cameraTransitioning = true;
             
             if (cameraFollow != null)
@@ -599,8 +721,11 @@ public class BossArenaManager : MonoBehaviour
     
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(arenaCenter, 0.5f);
+        if (arenaCenter != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(arenaCenter.position, 0.5f);
+        }
         
         if (bossSpawnPoint != null)
         {

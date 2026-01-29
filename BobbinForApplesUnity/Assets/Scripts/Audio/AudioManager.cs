@@ -115,10 +115,17 @@ public class AudioManager : MonoBehaviour
         AudioSource source = GetAvailableAudioSource();
         ConfigureAudioSource(source, soundData);
         
-        source.time = soundData.startOffset;
-        source.Play();
-        
-        StartCoroutine(ReturnSourceToPool(source, soundData.clip.length - soundData.startOffset));
+        if (soundData.startOffset >= 0f)
+        {
+            source.time = soundData.startOffset;
+            source.Play();
+            float duration = CalculateSoundDuration(soundData);
+            StartCoroutine(ReturnSourceToPool(source, duration));
+        }
+        else
+        {
+            StartCoroutine(PlayWithDelay(source, soundData, -soundData.startOffset));
+        }
     }
     
     public void PlaySound(SoundData soundData, Vector3 position)
@@ -133,10 +140,18 @@ public class AudioManager : MonoBehaviour
         ConfigureAudioSource(source, soundData);
         
         source.transform.position = position;
-        source.time = soundData.startOffset;
-        source.Play();
         
-        StartCoroutine(ReturnSourceToPool(source, soundData.clip.length - soundData.startOffset));
+        if (soundData.startOffset >= 0f)
+        {
+            source.time = soundData.startOffset;
+            source.Play();
+            float duration = CalculateSoundDuration(soundData);
+            StartCoroutine(ReturnSourceToPool(source, duration));
+        }
+        else
+        {
+            StartCoroutine(PlayWithDelay(source, soundData, -soundData.startOffset));
+        }
     }
     
     public AudioSource PlaySoundWithReference(AudioEventType eventType)
@@ -161,12 +176,32 @@ public class AudioManager : MonoBehaviour
         AudioSource source = GetAvailableAudioSource();
         ConfigureAudioSource(source, soundData);
         
-        source.time = soundData.startOffset;
-        source.Play();
-        
-        StartCoroutine(ReturnSourceToPool(source, soundData.clip.length - soundData.startOffset));
+        if (soundData.startOffset >= 0f)
+        {
+            source.time = soundData.startOffset;
+            source.Play();
+            float duration = CalculateSoundDuration(soundData);
+            StartCoroutine(ReturnSourceToPool(source, duration));
+        }
+        else
+        {
+            StartCoroutine(PlayWithDelay(source, soundData, -soundData.startOffset));
+        }
         
         return source;
+    }
+    
+    private float CalculateSoundDuration(SoundData soundData)
+    {
+        float clipDuration = soundData.clip.length - Mathf.Max(0f, soundData.startOffset);
+        
+        if (soundData.useReverb)
+        {
+            float reverbTail = soundData.decayTime * 1.5f;
+            return clipDuration + reverbTail;
+        }
+        
+        return clipDuration;
     }
     
     private AudioSource GetAvailableAudioSource()
@@ -199,6 +234,48 @@ public class AudioManager : MonoBehaviour
         {
             source.spatialBlend = 0f;
         }
+        
+        AudioReverbFilter reverbFilter = source.GetComponent<AudioReverbFilter>();
+        
+        if (soundData.useReverb)
+        {
+            if (reverbFilter == null)
+            {
+                reverbFilter = source.gameObject.AddComponent<AudioReverbFilter>();
+            }
+            
+            reverbFilter.enabled = true;
+            reverbFilter.reverbPreset = AudioReverbPreset.User;
+            source.reverbZoneMix = soundData.reverbZoneMix;
+            reverbFilter.dryLevel = soundData.dryLevel;
+            reverbFilter.room = soundData.room;
+            reverbFilter.roomHF = soundData.roomHF;
+            reverbFilter.reverbLevel = soundData.reverbLevel;
+            reverbFilter.reflectionsLevel = soundData.reflectionsLevel;
+            reverbFilter.decayTime = soundData.decayTime;
+            reverbFilter.decayHFRatio = soundData.decayHFRatio;
+            reverbFilter.density = soundData.density;
+            reverbFilter.diffusion = soundData.diffusion;
+        }
+        else
+        {
+            if (reverbFilter != null)
+            {
+                reverbFilter.enabled = false;
+            }
+        }
+    }
+    
+    private System.Collections.IEnumerator PlayWithDelay(AudioSource source, SoundData soundData, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        if (source != null)
+        {
+            source.Play();
+            float duration = CalculateSoundDuration(soundData);
+            StartCoroutine(ReturnSourceToPool(source, duration));
+        }
     }
     
     private System.Collections.IEnumerator ReturnSourceToPool(AudioSource source, float delay)
@@ -209,6 +286,13 @@ public class AudioManager : MonoBehaviour
         {
             source.Stop();
             source.clip = null;
+            
+            AudioReverbFilter reverbFilter = source.GetComponent<AudioReverbFilter>();
+            if (reverbFilter != null)
+            {
+                reverbFilter.enabled = false;
+            }
+            
             availableSources.Enqueue(source);
         }
     }

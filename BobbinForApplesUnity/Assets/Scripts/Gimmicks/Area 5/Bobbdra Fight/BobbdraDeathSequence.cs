@@ -21,8 +21,16 @@ public class BobbdraDeathSequence : MonoBehaviour
     [SerializeField] private float sinkDistance = -25f;
     [SerializeField] private float sinkSpeed = 10f;
     
+    [Header("Boss Entry Animation")]
+    [SerializeField] private GameObject bossPreviewPrefab;
+    [SerializeField] private Transform heartSpawnPoint;
+    [SerializeField] private Transform arenaCenter;
+    [SerializeField] private float bossSpawnDelay = 0.5f;
+    [SerializeField] private BossCinematicSequence cinematicSequence;
+    
     private Vector3 spawnPosition;
     private bool isDeathSequenceActive;
+    private GameObject spawnedBoss;
     
     private void Start()
     {
@@ -70,6 +78,8 @@ public class BobbdraDeathSequence : MonoBehaviour
             
             centerHeadPlayer.PlayAndHold(centerDeathClip);
             
+            StartCoroutine(SpawnBossDuringAnimation());
+            
             float centerDeathDuration = centerDeathClip.length;
             yield return new WaitForSeconds(centerDeathDuration);
         }
@@ -116,5 +126,59 @@ public class BobbdraDeathSequence : MonoBehaviour
         }
         
         transform.position = targetPosition;
+    }
+    
+    private IEnumerator SpawnBossDuringAnimation()
+    {
+        yield return new WaitForSeconds(bossSpawnDelay);
+        
+        if (bossPreviewPrefab == null)
+        {
+            Debug.LogWarning("Boss Preview prefab not assigned in BobbdraDeathSequence");
+            yield break;
+        }
+        
+        if (arenaCenter == null)
+        {
+            GameObject arenaCenterGO = GameObject.Find("ArenaCenter");
+            if (arenaCenterGO != null)
+            {
+                arenaCenter = arenaCenterGO.transform;
+                Debug.Log($"Found ArenaCenter GameObject. Local pos: {arenaCenter.localPosition}, World pos: {arenaCenter.position}");
+            }
+            else
+            {
+                Debug.LogError("ArenaCenter GameObject not found in scene!");
+            }
+        }
+        
+        Vector3 spawnLocation = heartSpawnPoint != null ? heartSpawnPoint.position : transform.position;
+        
+        Debug.Log($"Spawning preview boss at {spawnLocation}");
+        spawnedBoss = Instantiate(bossPreviewPrefab, spawnLocation, Quaternion.identity);
+        
+        BossEntryAnimation entryAnimation = spawnedBoss.GetComponent<BossEntryAnimation>();
+        if (entryAnimation == null)
+        {
+            entryAnimation = spawnedBoss.AddComponent<BossEntryAnimation>();
+        }
+        
+        if (cinematicSequence == null)
+        {
+            cinematicSequence = FindFirstObjectByType<BossCinematicSequence>();
+            Debug.Log($"Found BossCinematicSequence: {cinematicSequence != null}");
+        }
+        
+        if (cinematicSequence != null && entryAnimation != null)
+        {
+            typeof(BossEntryAnimation).GetField("cinematicSequence", 
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                ?.SetValue(entryAnimation, cinematicSequence);
+            Debug.Log("BossCinematicSequence assigned to BossEntryAnimation");
+        }
+        
+        Vector3 arenaCenterPosition = arenaCenter != null ? arenaCenter.position : Vector3.zero;
+        Debug.Log($"Arena center Transform is {(arenaCenter != null ? "assigned" : "NULL")}, position: {arenaCenterPosition}");
+        entryAnimation.PlayEntryAnimation(arenaCenterPosition);
     }
 }

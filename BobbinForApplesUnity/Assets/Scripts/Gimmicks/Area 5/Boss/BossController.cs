@@ -197,6 +197,11 @@ public class BossController : MonoBehaviour
             healthBarUI.UpdateHealth(currentHealth);
         }
         
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySound(AudioEventType.BossDamage, transform.position);
+        }
+        
         StartCoroutine(HitFeedback());
         
         CheckPhaseTransition();
@@ -289,7 +294,14 @@ public class BossController : MonoBehaviour
         
         if (bossMovement != null)
         {
-            bossMovement.StartMovement(currentPhase);
+            if (newPhase == 2)
+            {
+                bossMovement.TransitionToPhase2();
+            }
+            else
+            {
+                bossMovement.StartMovement(currentPhase);
+            }
         }
         
         StartCoroutine(TransitionCoroutine());

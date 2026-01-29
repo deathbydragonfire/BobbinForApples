@@ -13,11 +13,22 @@ MonoBehaviour:
   m_Name: Boss_Roar_Sound
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
   clip: {fileID: 8300000, guid: c2a1e3550ff5e744c91379b31f1a2b5f, type: 3}
-  volume: 0.33
+  volume: 0.253
   pitch: 1
   startOffset: 0
   randomizePitch: 0
   pitchVariation: 0.1
-  is3DSound: 1
+  is3DSound: 0
   minDistance: 5
   maxDistance: 50
+  useReverb: 0
+  reverbZoneMix: 1.078
+  dryLevel: -812
+  room: -1000
+  roomHF: -100
+  reverbLevel: 998
+  reflectionsLevel: -10000
+  decayTime: 3.96
+  decayHFRatio: 0.83
+  density: 100
+  diffusion: 100

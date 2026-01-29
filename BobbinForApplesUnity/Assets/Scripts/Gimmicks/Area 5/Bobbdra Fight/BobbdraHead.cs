@@ -322,6 +322,15 @@ public class BobbdraHead : MonoBehaviour
     
     public void PlayRoarAnimation(AnimationClip roarClip)
     {
+        Animator[] animators = GetComponentsInChildren<Animator>();
+        foreach (Animator anim in animators)
+        {
+            if (anim != null)
+            {
+                anim.enabled = false;
+            }
+        }
+        
         if (biteAnimationController != null)
         {
             biteAnimationController.ReleaseFreeze();

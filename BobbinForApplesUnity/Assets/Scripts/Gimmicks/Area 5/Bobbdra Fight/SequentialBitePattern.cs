@@ -67,6 +67,11 @@ public class SequentialBitePattern : BobbdraAttackPattern
         {
             if (head != null)
             {
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySound(AudioEventType.BossBite, head.transform.position);
+                }
+                
                 Vector3 biteTarget = head.transform.position + Vector3.up * 6f;
                 head.PerformBiteAttack(biteTarget, skipIdleControl: true);
                 yield return new WaitForSeconds(delayBetweenHeads);
