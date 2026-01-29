@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: UnderWaterVolumeProfile
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.VolumeProfile
+  components:
+  - {fileID: 8052386232278554120}
+--- !u!114 &8052386232278554120
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35373c49022d055459aed87a4dfe114a, type: 3}
+  m_Name: UnderwaterEffectVolume
+  m_EditorClassIdentifier: Assembly-CSharp::UnderwaterEffectVolume
+  active: 1
+  shallowColor:
+    m_OverrideState: 0
+    m_Value: {r: 0.2, g: 0.6, b: 0.8, a: 1}
+  deepColor:
+    m_OverrideState: 0
+    m_Value: {r: 0.05, g: 0.3, b: 0.5, a: 1}
+  tintStrength:
+    m_OverrideState: 0
+    m_Value: 0.5
+  waveSpeed:
+    m_OverrideState: 0
+    m_Value: 1
+  waveFrequency:
+    m_OverrideState: 0
+    m_Value: 20
+  waveAmplitude:
+    m_OverrideState: 0
+    m_Value: 0.003
+  causticsSpeed:
+    m_OverrideState: 0
+    m_Value: 0.5
+  causticsScale:
+    m_OverrideState: 0
+    m_Value: 5
+  causticsIntensity:
+    m_OverrideState: 0
+    m_Value: 0.3
+  effectIntensity:
+    m_OverrideState: 0
+    m_Value: 0

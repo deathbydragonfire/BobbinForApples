@@ -114,21 +114,21 @@ MonoBehaviour:
   bossProjectilePool: {fileID: 0}
   player: {fileID: 0}
   radialBurstCount: 14
-  radialBurstSpeed: 5
+  radialBurstSpeed: 17
   spiralDuration: 3
   spiralRotationSpeed: 15
   spiralFireInterval: 0.2
   spiralSpeed: 4
   spiralProjectilesPerBurst: 3
   aimedSpreadAngle: 10
-  aimedSpeed: 15
+  aimedSpeed: 25
   waveProjectileCount: 25
-  waveSpeed: 5
+  waveSpeed: 25
   waveSpacing: 1
   laserLine: {fileID: 3853668153397198885}
   laserRotationSpeed: 90
-  laserDuration: 4
-  laserRange: 15
+  laserDuration: 6
+  laserRange: 25
 --- !u!54 &2532469570401906438
 Rigidbody:
   m_ObjectHideFlags: 0

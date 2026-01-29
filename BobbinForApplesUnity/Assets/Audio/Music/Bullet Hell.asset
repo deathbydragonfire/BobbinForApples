@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Bullet Hell
   m_EditorClassIdentifier: Assembly-CSharp::MusicTrack
   clip: {fileID: 8300000, guid: a1b750400fb982d4394ff65cc98fa30a, type: 3}
-  volume: 0.486
+  volume: 0.559
   pitch: 1
   description: 

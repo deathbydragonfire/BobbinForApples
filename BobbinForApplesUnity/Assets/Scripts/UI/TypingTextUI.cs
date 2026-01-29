@@ -16,6 +16,9 @@ public class TypingTextUI : MonoBehaviour
     [SerializeField] private float displayDuration = 1.5f;
     [SerializeField] private float fadeOutDuration = 0.5f;
     
+    [Header("Audio Settings")]
+    [SerializeField] private SoundData typingSound;
+    
     private CanvasGroup canvasGroup;
     
     private void Awake()
@@ -88,10 +91,21 @@ public class TypingTextUI : MonoBehaviour
         textDisplay.text = "";
         float delay = 1f / charactersPerSecond;
         
+        AudioSource typingSoundSource = null;
+        if (typingSound != null && AudioManager.Instance != null)
+        {
+            typingSoundSource = AudioManager.Instance.PlaySoundWithReference(typingSound);
+        }
+        
         foreach (char character in text)
         {
             textDisplay.text += character;
             yield return new WaitForSeconds(delay);
+        }
+        
+        if (typingSoundSource != null && typingSoundSource.isPlaying)
+        {
+            typingSoundSource.Stop();
         }
     }
     

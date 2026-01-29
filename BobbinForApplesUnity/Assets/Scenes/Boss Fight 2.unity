@@ -2282,6 +2282,7 @@ GameObject:
   - component: {fileID: 330585552}
   - component: {fileID: 330585551}
   - component: {fileID: 330585553}
+  - component: {fileID: 330585554}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2566,6 +2567,18 @@ AudioReverbFilter:
   m_LFReference: 250
   m_ReflectionsDelay: 0
   m_ReverbPreset: 23
+--- !u!114 &330585554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef673b29e3902b42be2b7d4a2f22766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnderwaterEffectTester
 --- !u!1 &334622179
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,9 +2718,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: EnableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPlayerExit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: DisableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   showDebugLogs: 1
 --- !u!114 &334622186
 MonoBehaviour:
@@ -3108,9 +3145,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: EnableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPlayerExit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: DisableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   showDebugLogs: 1
 --- !u!114 &399867941
 MonoBehaviour:
@@ -3375,7 +3436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd9495cc2bef424b91510ed3de598b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  poolSize: 15
+  poolSize: 20
   soundMappings:
   - eventType: 0
     soundData: {fileID: 11400000, guid: 7379ea6e9f991bd4ea1a72dd16393e62, type: 2}
@@ -3409,8 +3470,8 @@ MonoBehaviour:
     soundData: {fileID: 11400000, guid: 71d920a827b0a3241a79c0aeb38b8d41, type: 2}
   - eventType: 21
     soundData: {fileID: 11400000, guid: a477543250f3b3d43a542bfc7ddacd56, type: 2}
-  - eventType: 18
-    soundData: {fileID: 11400000, guid: 71d920a827b0a3241a79c0aeb38b8d41, type: 2}
+  - eventType: 22
+    soundData: {fileID: 11400000, guid: afcdc584fd0e865458c6ba1c95a2d05b, type: 2}
   masterVolume: 1
 --- !u!4 &436755824
 Transform:
@@ -5474,6 +5535,8 @@ GameObject:
   m_Component:
   - component: {fileID: 832575519}
   - component: {fileID: 832575518}
+  - component: {fileID: 832575520}
+  - component: {fileID: 832575521}
   m_Layer: 0
   m_Name: Global Volume
   m_TagString: Untagged
@@ -5513,6 +5576,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &832575520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832575517}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24501cc821308174c96afbaf8055e9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnderwaterEffectManager
+  underwaterVolume: {fileID: 832575518}
+  transitionSpeed: 1.5
+  showDebugLogs: 1
+--- !u!114 &832575521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832575517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b900b6d691ae49f8a12753b63b449e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::Beautify.Universal.BeautifySettings
+  sun: {fileID: 0}
+  depthOfFieldTarget: {fileID: 0}
+  depthOfFieldFocusPositionEnabled: 0
+  depthOfFieldFocusPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &843700897
 GameObject:
   m_ObjectHideFlags: 0
@@ -8450,9 +8544,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: EnableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPlayerExit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: DisableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   showDebugLogs: 1
 --- !u!114 &1156565209
 MonoBehaviour:
@@ -11233,9 +11351,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: EnableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPlayerExit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: DisableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   showDebugLogs: 1
 --- !u!114 &1617051169
 MonoBehaviour:
@@ -11673,6 +11815,7 @@ MonoBehaviour:
   fadeInDuration: 0.3
   displayDuration: 1.5
   fadeOutDuration: 0.5
+  typingSound: {fileID: 11400000, guid: 32d5768e693c56b459f08184e5e55cc2, type: 2}
 --- !u!114 &1694831902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11900,12 +12043,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: EnableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPlayerExit:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1698236632}
         m_TargetAssemblyTypeName: 
         m_MethodName: OnPlayerExitArea
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: DisableUnderwaterEffect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12414,7 +12581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShootingController
   fireRate: 0.5
-  projectileSpeed: 45
+  projectileSpeed: 80
   muzzleOffset: 0.5
   projectilePool: {fileID: 1049956041}
   mainCamera: {fileID: 330585545}
@@ -13058,6 +13225,7 @@ GameObject:
   - component: {fileID: 1891754374}
   - component: {fileID: 1891754375}
   - component: {fileID: 1891754376}
+  - component: {fileID: 1891754377}
   m_Layer: 0
   m_Name: Arena
   m_TagString: Untagged
@@ -13334,6 +13502,50 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1891754377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891754368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7016cc4ff5fd14a9c43709fb2c42d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AreaTrigger
+  areaName: Arena
+  onPlayerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: EnableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPlayerExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 832575520}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: DisableUnderwaterEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  showDebugLogs: 1
 --- !u!1 &1910505270
 GameObject:
   m_ObjectHideFlags: 0

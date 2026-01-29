@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3e1d3f7f8732a4e8a1f399a657d654, type: 3}
   m_Name: Health Spawn In
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
-  clip: {fileID: 8300000, guid: aaaa1d437f266be4ebfcccf0842017d6, type: 3}
-  volume: 0.651
-  pitch: 1
+  clip: {fileID: 8300000, guid: 8b43c5e79a99a284e923de1079ab90bf, type: 3}
+  volume: 0.691
+  pitch: 1.372
   startOffset: 0
-  randomizePitch: 0
-  pitchVariation: 0.1
+  randomizePitch: 1
+  pitchVariation: 0.301
   is3DSound: 0
   minDistance: 1
   maxDistance: 50

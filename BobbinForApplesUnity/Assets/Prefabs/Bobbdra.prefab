@@ -776,7 +776,7 @@ MonoBehaviour:
   delayBetweenShots: 0.2
   doubleVolley: 0
   volleyDelay: 2
-  projectileSpeed: 45
+  projectileSpeed: 65
   projectileScale: 2
   useAnimation: 1
   fireDelayAfterAnimationStart: 1
@@ -4785,6 +4785,7 @@ MonoBehaviour:
   introRiseDuration: 3
   annoyingHeadPrefab: {fileID: 8164278490300343114, guid: 815143968574a434db201fb2e3b8bad9, type: 3}
   annoyingHeadSpawnDelay: 3
+  minHealthDuringProtectedAttacks: 1
 --- !u!65 &4101892930358512660
 BoxCollider:
   m_ObjectHideFlags: 0

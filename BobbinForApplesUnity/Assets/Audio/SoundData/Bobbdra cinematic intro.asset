@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3e1d3f7f8732a4e8a1f399a657d654, type: 3}
   m_Name: Bobbdra cinematic intro
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
-  clip: {fileID: 0}
-  volume: 0
+  clip: {fileID: 8300000, guid: db0b5fa9fdec9104f859052fe6ca2872, type: 3}
+  volume: 0.371
   pitch: 1
-  startOffset: 0
+  startOffset: 1
   randomizePitch: 0
   pitchVariation: 0.1
   is3DSound: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
   dryLevel: -553
   room: 0
   roomHF: 0
-  reverbLevel: 856
+  reverbLevel: 461
   reflectionsLevel: -10000
   decayTime: 3.17
   decayHFRatio: 0.83
