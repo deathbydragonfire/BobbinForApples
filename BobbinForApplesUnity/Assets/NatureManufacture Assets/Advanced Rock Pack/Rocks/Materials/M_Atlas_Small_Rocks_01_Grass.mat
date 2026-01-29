@@ -221,7 +221,7 @@ Material:
     - _BaseAORemapMin: 0
     - _BaseMetallic: 1
     - _BaseNormalScale: 1
-    - _BaseSmoothnessRemapMax: 0
+    - _BaseSmoothnessRemapMax: 1
     - _BaseSmoothnessRemapMin: 0
     - _BaseUsePlanarUV: 0
     - _Blend: 0
