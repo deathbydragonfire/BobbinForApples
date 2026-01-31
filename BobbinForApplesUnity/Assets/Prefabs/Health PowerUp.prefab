@@ -296,6 +296,5 @@ MonoBehaviour:
   healPercentage: 0.333
   spawnDuration: 0.5
   spawnBounciness: 1.5
-  rotationSpeed: 90
   bobSpeed: 2
   bobHeight: 0.15

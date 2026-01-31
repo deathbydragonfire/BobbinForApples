@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 575702315690483917}
   - component: {fileID: 8799701819119015886}
+  - component: {fileID: 1067396544052289629}
   m_Layer: 0
   m_Name: BiteArea
   m_TagString: Untagged
@@ -68,6 +69,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 4
+--- !u!114 &1067396544052289629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995548046013072437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b131cfbd241b374587056d117b2c06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BiteAreaDeathTrigger
+  isActive: 1
 --- !u!1 &2557549230860966474
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +185,8 @@ GameObject:
   - component: {fileID: 5151079105641990193}
   - component: {fileID: 287574328542951004}
   - component: {fileID: 1464679116283701037}
+  - component: {fileID: 8024658436807481561}
+  - component: {fileID: 1594886380550281489}
   m_Layer: 0
   m_Name: Bobber
   m_TagString: Untagged
@@ -281,10 +297,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BobberMouthController
   animator: {fileID: 6965916649751957843}
+  initialWaitTime: 3
   timeInAreaToClose: 2
   periodicCloseInterval: 5
   mouthClosedDuration: 5
   biteAreaCollider: {fileID: 8799701819119015886}
+--- !u!135 &8024658436807481561
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164278490300343114}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1594886380550281489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164278490300343114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ce29ded73ba5542bec3bfb6e6ec8b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BobberFreezeHandler
+  freezeColor: {r: 0, g: 0.5, b: 1, a: 1}
 --- !u!1001 &4281043816028614858
 PrefabInstance:
   m_ObjectHideFlags: 0

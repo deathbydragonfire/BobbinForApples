@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float shakeDuration = 0.2f;
     [SerializeField] private float healFlashDuration = 0.3f;
 
+    [Header("God Mode")]
+    [SerializeField] private bool godMode = false;
+
     private Rigidbody rigidBody;
     private Keyboard keyboard;
 
@@ -259,6 +262,12 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
+        if (godMode)
+        {
+            Debug.Log("God Mode: Damage ignored");
+            return;
+        }
+
         if (isInvincible || healthUI == null)
         {
             return;
@@ -342,7 +351,44 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
+        if (godMode)
+        {
+            Debug.Log("God Mode: Death ignored");
+            return;
+        }
+
         Debug.Log("Player died!");
+        
+        if (PowerupInventoryManager.Instance != null)
+        {
+            PowerupInventoryManager.Instance.ClearAllPowerups();
+        }
+
+        if (PlayerDeathManager.Instance != null)
+        {
+            PlayerDeathManager.Instance.TriggerDeath("GAME OVER");
+        }
+    }
+
+    public void DieFromBobber()
+    {
+        if (godMode)
+        {
+            Debug.Log("God Mode: Death from bobber ignored");
+            return;
+        }
+
+        Debug.Log("Player caught by bobber!");
+        
+        if (PowerupInventoryManager.Instance != null)
+        {
+            PowerupInventoryManager.Instance.ClearAllPowerups();
+        }
+
+        if (PlayerDeathManager.Instance != null)
+        {
+            PlayerDeathManager.Instance.TriggerDeath("GAME OVER");
+        }
     }
 
     public void SetHealthUI(PlayerHealthUI ui)

@@ -28,5 +28,8 @@ public enum AudioEventType
     AttackHit,
     
     HealthPickup,
-    HealthSpawn
+    HealthSpawn,
+    
+    PowerupPickup,
+    PowerupSpawn
 }

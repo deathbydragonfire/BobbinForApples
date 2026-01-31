@@ -191,6 +191,33 @@ public class AudioManager : MonoBehaviour
         return source;
     }
     
+    public AudioSource PlaySoundWithPriority(SoundData soundData, int priority)
+    {
+        if (soundData == null || soundData.clip == null)
+        {
+            Debug.LogWarning("Attempted to play null sound data or clip.");
+            return null;
+        }
+        
+        AudioSource source = GetAvailableAudioSource();
+        ConfigureAudioSource(source, soundData);
+        source.priority = priority;
+        
+        if (soundData.startOffset >= 0f)
+        {
+            source.time = soundData.startOffset;
+            source.Play();
+            float duration = CalculateSoundDuration(soundData);
+            StartCoroutine(ReturnSourceToPool(source, duration));
+        }
+        else
+        {
+            StartCoroutine(PlayWithDelay(source, soundData, -soundData.startOffset));
+        }
+        
+        return source;
+    }
+    
     private float CalculateSoundDuration(SoundData soundData)
     {
         float clipDuration = soundData.clip.length - Mathf.Max(0f, soundData.startOffset);
@@ -222,6 +249,7 @@ public class AudioManager : MonoBehaviour
         source.clip = soundData.clip;
         source.volume = soundData.volume * masterVolume;
         source.pitch = soundData.GetPitch();
+        source.priority = 64;
         
         if (soundData.is3DSound)
         {

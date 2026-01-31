@@ -35,7 +35,7 @@ MonoBehaviour:
   stripBeautifyLensDirt: 0
   stripBeautifyChromaticAberration: 0
   stripBeautifyDoF: 0
-  stripBeautifyDoFTransparentSupport: 1
+  stripBeautifyDoFTransparentSupport: 0
   stripBeautifyEyeAdaptation: 1
   stripBeautifyPurkinje: 1
   stripBeautifyVignetting: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   stripUnityChromaticAberration: 0
   stripUnityDistortion: 0
   stripUnityDebugVariants: 0
---- !u!114 &-1913337536456319578
+--- !u!114 &-4854909147315046036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,10 +61,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e670a50d362d8cc45a1c423f9623df09, type: 3}
-  m_Name: UnderwaterEffectRendererFeature
-  m_EditorClassIdentifier: Assembly-CSharp::UnderwaterEffectRendererFeature
-  m_Active: 1
+  m_Script: {fileID: 11500000, guid: b6fef89d7176c844f89a14d7bc7b98f6, type: 3}
+  m_Name: UnderwaterDistortionFeature
+  m_EditorClassIdentifier: Assembly-CSharp::UnderwaterDistortionFeature
+  m_Active: 0
+  settings:
+    renderPassEvent: 500
+    textureId: _UnderwaterColorTexture
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,9 +94,8 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  - {fileID: -1913337536456319578}
   - {fileID: -8544858581994046947}
-  m_RendererFeatureMap: ad6b866f10d7b46ca69d19dca57572e51dfa4b6c64906a89
+  m_RendererFeatureMap: ad6b866f10d7b46c1dfa4b6c64906a89
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}

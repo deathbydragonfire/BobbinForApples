@@ -27,6 +27,10 @@ public class Area4BossTransitionManager : MonoBehaviour
     [Header("Arena Animation")]
     [SerializeField] private ArenaOutlineDrawAnimation arenaDrawAnimation;
     
+    [Header("Area 4 Systems")]
+    [SerializeField] private Area4SonarManager sonarManager;
+    [SerializeField] private GameObject bobber;
+    
     [Header("Text Messages")]
     [SerializeField] private string firstMessage = "What Happened?";
     [SerializeField] private string secondMessage = "What's that sound?";
@@ -59,6 +63,11 @@ public class Area4BossTransitionManager : MonoBehaviour
         {
             typingText = FindFirstObjectByType<TypingTextUI>();
         }
+        
+        if (sonarManager == null)
+        {
+            sonarManager = FindFirstObjectByType<Area4SonarManager>();
+        }
     }
     
     public void StartTransition(GameObject player, Vector3 arenaPosition, BossArenaManager arenaManager)
@@ -75,6 +84,18 @@ public class Area4BossTransitionManager : MonoBehaviour
     private IEnumerator TransitionSequence(GameObject player, Vector3 arenaPosition, BossArenaManager arenaManager)
     {
         transitionInProgress = true;
+        
+        if (sonarManager != null)
+        {
+            sonarManager.PauseSonar();
+            Debug.Log("Paused sonar system for transition");
+        }
+        
+        if (bobber != null)
+        {
+            bobber.SetActive(false);
+            Debug.Log("Bobber deactivated for boss transition");
+        }
         
         Debug.Log("Starting Area 4 to Boss Arena transition...");
         
@@ -136,12 +157,15 @@ public class Area4BossTransitionManager : MonoBehaviour
             {
                 yield return null;
             }
+            
+            typingText.StopTypingSound();
+            yield return new WaitForSeconds(0.1f);
         }
         
         if (bobbdraCinematicIntro != null && AudioManager.Instance != null)
         {
-            Debug.Log("Playing Bobbdra cinematic intro sound");
-            AudioManager.Instance.PlaySound(bobbdraCinematicIntro);
+            Debug.Log("Playing Bobbdra cinematic intro sound with high priority");
+            AudioManager.Instance.PlaySoundWithPriority(bobbdraCinematicIntro, 0);
         }
         
         if (screenFade != null)

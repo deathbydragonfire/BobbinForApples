@@ -20,6 +20,7 @@ public class TypingTextUI : MonoBehaviour
     [SerializeField] private SoundData typingSound;
     
     private CanvasGroup canvasGroup;
+    private AudioSource activeTypingSoundSource;
     
     private void Awake()
     {
@@ -91,10 +92,9 @@ public class TypingTextUI : MonoBehaviour
         textDisplay.text = "";
         float delay = 1f / charactersPerSecond;
         
-        AudioSource typingSoundSource = null;
         if (typingSound != null && AudioManager.Instance != null)
         {
-            typingSoundSource = AudioManager.Instance.PlaySoundWithReference(typingSound);
+            activeTypingSoundSource = AudioManager.Instance.PlaySoundWithReference(typingSound);
         }
         
         foreach (char character in text)
@@ -103,9 +103,15 @@ public class TypingTextUI : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
         
-        if (typingSoundSource != null && typingSoundSource.isPlaying)
+        StopTypingSound();
+    }
+    
+    public void StopTypingSound()
+    {
+        if (activeTypingSoundSource != null && activeTypingSoundSource.isPlaying)
         {
-            typingSoundSource.Stop();
+            activeTypingSoundSource.Stop();
+            activeTypingSoundSource = null;
         }
     }
     

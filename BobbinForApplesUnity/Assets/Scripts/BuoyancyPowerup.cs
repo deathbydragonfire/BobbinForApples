@@ -5,7 +5,7 @@ public class BuoyancyPowerup : MonoBehaviour
 {
     [Header("Buoyancy Effect")]
     [Tooltip("The buoyancy value to set when picked up")]
-    [SerializeField] private float buoyancyAmount = 1f;
+    [SerializeField] private float buoyancyAmount = -5f;
     
     [Header("Effect Duration")]
     [Tooltip("Is this effect timed or permanent?")]

@@ -6,20 +6,36 @@ public class Area3SilhouetteManager : MonoBehaviour
     [SerializeField] private Material silhouetteMaterial;
     [SerializeField] private Color silhouetteColor = Color.black;
     
-    [Header("Transition Settings")]
-    [SerializeField] private float transitionDuration = 1f;
+    [Header("Depth-Based Settings")]
+    [SerializeField] private float topYPosition = 0f;
+    [SerializeField] private float halfwayYPosition = -10f;
+    [SerializeField] private float updateInterval = 0.1f;
     
     [Header("Filter Options")]
     [SerializeField] private bool includeInactive = false;
 
     private const string PLAYER_TAG = "Player";
+    private GameObject activePlayer;
+    private bool playerInArea = false;
+
+    private void Start()
+    {
+        if (TryGetComponent<Collider>(out Collider trigger))
+        {
+            Bounds bounds = trigger.bounds;
+            topYPosition = bounds.max.y;
+            halfwayYPosition = bounds.min.y + (bounds.size.y * 0.5f);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(PLAYER_TAG))
         {
-            ApplySilhouetteToPlayer(other.gameObject);
-            ApplySilhouetteToObstacles();
+            activePlayer = other.gameObject;
+            playerInArea = true;
+            InitializeSilhouetteControllers();
+            InvokeRepeating(nameof(UpdateSilhouetteIntensity), 0f, updateInterval);
         }
     }
 
@@ -27,40 +43,62 @@ public class Area3SilhouetteManager : MonoBehaviour
     {
         if (other.CompareTag(PLAYER_TAG))
         {
+            playerInArea = false;
+            CancelInvoke(nameof(UpdateSilhouetteIntensity));
             RestorePlayerMaterials(other.gameObject);
             RestoreObstacleMaterials();
+            activePlayer = null;
         }
     }
 
-    private void ApplySilhouetteToPlayer(GameObject player)
+    private void UpdateSilhouetteIntensity()
     {
-        PlayerSilhouetteController silhouetteController = player.GetComponent<PlayerSilhouetteController>();
-        if (silhouetteController == null)
+        if (!playerInArea || activePlayer == null)
         {
-            silhouetteController = player.AddComponent<PlayerSilhouetteController>();
+            return;
         }
 
-        silhouetteController.ApplySilhouette(silhouetteMaterial, silhouetteColor, transitionDuration);
+        float playerY = activePlayer.transform.position.y;
+        float intensity = CalculateIntensity(playerY);
+
+        UpdatePlayerSilhouette(intensity);
+        UpdateObstacleSilhouettes(intensity);
     }
 
-    private void RestorePlayerMaterials(GameObject player)
+    private float CalculateIntensity(float yPosition)
     {
-        PlayerSilhouetteController silhouetteController = player.GetComponent<PlayerSilhouetteController>();
-        if (silhouetteController != null)
+        if (yPosition >= topYPosition)
         {
-            silhouetteController.RestoreOriginalMaterials(transitionDuration);
+            return 0f;
         }
+        else if (yPosition <= halfwayYPosition)
+        {
+            return 1f;
+        }
+        
+        float range = topYPosition - halfwayYPosition;
+        float distance = topYPosition - yPosition;
+        return Mathf.Clamp01(distance / range);
     }
 
-    private void ApplySilhouetteToObstacles()
+    private void InitializeSilhouetteControllers()
     {
+        if (activePlayer != null)
+        {
+            PlayerSilhouetteController silhouetteController = activePlayer.GetComponent<PlayerSilhouetteController>();
+            if (silhouetteController == null)
+            {
+                silhouetteController = activePlayer.AddComponent<PlayerSilhouetteController>();
+            }
+            silhouetteController.Initialize(silhouetteMaterial, silhouetteColor);
+        }
+
         if (silhouetteMaterial == null)
         {
             Debug.LogWarning("Silhouette material not assigned!");
             return;
         }
 
-        int count = 0;
         MeshRenderer[] renderers = includeInactive 
             ? GetComponentsInChildren<MeshRenderer>(true) 
             : GetComponentsInChildren<MeshRenderer>(false);
@@ -72,17 +110,26 @@ public class Area3SilhouetteManager : MonoBehaviour
             {
                 silhouetteController = renderer.gameObject.AddComponent<ObstacleSilhouetteController>();
             }
-
-            silhouetteController.ApplySilhouette(silhouetteMaterial, transitionDuration);
-            count++;
+            silhouetteController.Initialize(silhouetteMaterial);
         }
-
-        Debug.Log($"Applied silhouette effect to {count} obstacles in Area 3");
     }
 
-    private void RestoreObstacleMaterials()
+    private void UpdatePlayerSilhouette(float intensity)
     {
-        int count = 0;
+        if (activePlayer == null)
+        {
+            return;
+        }
+
+        PlayerSilhouetteController silhouetteController = activePlayer.GetComponent<PlayerSilhouetteController>();
+        if (silhouetteController != null)
+        {
+            silhouetteController.UpdateSilhouetteIntensity(intensity);
+        }
+    }
+
+    private void UpdateObstacleSilhouettes(float intensity)
+    {
         MeshRenderer[] renderers = includeInactive 
             ? GetComponentsInChildren<MeshRenderer>(true) 
             : GetComponentsInChildren<MeshRenderer>(false);
@@ -92,11 +139,33 @@ public class Area3SilhouetteManager : MonoBehaviour
             ObstacleSilhouetteController silhouetteController = renderer.GetComponent<ObstacleSilhouetteController>();
             if (silhouetteController != null)
             {
-                silhouetteController.RestoreOriginalMaterial(transitionDuration);
+                silhouetteController.UpdateSilhouetteIntensity(intensity);
             }
-            count++;
         }
+    }
 
-        Debug.Log($"Restored {count} obstacles in Area 3");
+    private void RestorePlayerMaterials(GameObject player)
+    {
+        PlayerSilhouetteController silhouetteController = player.GetComponent<PlayerSilhouetteController>();
+        if (silhouetteController != null)
+        {
+            silhouetteController.RestoreOriginalMaterials();
+        }
+    }
+
+    private void RestoreObstacleMaterials()
+    {
+        MeshRenderer[] renderers = includeInactive 
+            ? GetComponentsInChildren<MeshRenderer>(true) 
+            : GetComponentsInChildren<MeshRenderer>(false);
+
+        foreach (MeshRenderer renderer in renderers)
+        {
+            ObstacleSilhouetteController silhouetteController = renderer.GetComponent<ObstacleSilhouetteController>();
+            if (silhouetteController != null)
+            {
+                silhouetteController.RestoreOriginalMaterial();
+            }
+        }
     }
 }

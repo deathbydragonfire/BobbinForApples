@@ -1,133 +1,181 @@
 using UnityEngine;
-using System.Collections;
 
 public class ObstacleSilhouetteController : MonoBehaviour
 {
     private Material[] originalMaterials;
     private MeshRenderer meshRenderer;
-    private bool isSilhouetteActive = false;
-    private Coroutine transitionCoroutine;
-    private Material[] currentMaterials;
+    private Material silhouetteMaterial;
+    private bool isInitialized = false;
+    private Material[] currentBlendedMaterials;
 
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    public void ApplySilhouette(Material silhouetteMaterial, float transitionDuration)
+    public void Initialize(Material material)
     {
-        if (isSilhouetteActive || meshRenderer == null)
+        if (isInitialized || meshRenderer == null)
         {
             return;
         }
 
-        if (transitionCoroutine != null)
-        {
-            StopCoroutine(transitionCoroutine);
-        }
-
+        silhouetteMaterial = material;
         originalMaterials = meshRenderer.materials;
-        transitionCoroutine = StartCoroutine(TransitionToSilhouette(silhouetteMaterial, transitionDuration));
+        isInitialized = true;
     }
 
-    public void RestoreOriginalMaterial(float transitionDuration)
+    public void UpdateSilhouetteIntensity(float intensity)
     {
-        if (!isSilhouetteActive || meshRenderer == null || originalMaterials == null)
+        if (!isInitialized || meshRenderer == null || originalMaterials == null)
         {
             return;
         }
 
-        if (transitionCoroutine != null)
+        intensity = Mathf.Clamp01(intensity);
+
+        if (currentBlendedMaterials == null || currentBlendedMaterials.Length != originalMaterials.Length)
         {
-            StopCoroutine(transitionCoroutine);
-        }
-
-        transitionCoroutine = StartCoroutine(TransitionToOriginal(transitionDuration));
-    }
-
-    private IEnumerator TransitionToSilhouette(Material silhouetteMaterial, float duration)
-    {
-        Material[] silhouetteMaterials = new Material[originalMaterials.Length];
-        Material[] transitionMaterials = new Material[originalMaterials.Length];
-
-        for (int i = 0; i < originalMaterials.Length; i++)
-        {
-            silhouetteMaterials[i] = silhouetteMaterial;
-            transitionMaterials[i] = new Material(originalMaterials[i]);
-        }
-
-        meshRenderer.materials = transitionMaterials;
-        currentMaterials = transitionMaterials;
-
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-
-            for (int i = 0; i < transitionMaterials.Length; i++)
+            CleanupBlendedMaterials();
+            currentBlendedMaterials = new Material[originalMaterials.Length];
+            for (int i = 0; i < originalMaterials.Length; i++)
             {
-                if (transitionMaterials[i].HasProperty("_BaseColor"))
+                currentBlendedMaterials[i] = new Material(originalMaterials[i]);
+            }
+            meshRenderer.materials = currentBlendedMaterials;
+        }
+
+        float adjustedIntensity = Mathf.Pow(intensity, 0.3f);
+
+        for (int i = 0; i < currentBlendedMaterials.Length; i++)
+        {
+            Color targetBlack = Color.black;
+            float colorBlend = adjustedIntensity;
+            float propertyBlend = adjustedIntensity;
+            
+            if (intensity > 0.85f)
+            {
+                float finalPhase = (intensity - 0.85f) / 0.15f;
+                colorBlend = Mathf.Lerp(adjustedIntensity, 1f, finalPhase * finalPhase);
+                propertyBlend = colorBlend;
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_BaseColor"))
+            {
+                Color originalColor = originalMaterials[i].GetColor("_BaseColor");
+                Color blendedColor = Color.Lerp(originalColor, targetBlack, colorBlend);
+                currentBlendedMaterials[i].SetColor("_BaseColor", blendedColor);
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_Metallic"))
+            {
+                float originalMetallic = originalMaterials[i].GetFloat("_Metallic");
+                currentBlendedMaterials[i].SetFloat("_Metallic", Mathf.Lerp(originalMetallic, 0f, propertyBlend));
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_BaseMetallic"))
+            {
+                float originalMetallic = originalMaterials[i].GetFloat("_BaseMetallic");
+                currentBlendedMaterials[i].SetFloat("_BaseMetallic", Mathf.Lerp(originalMetallic, 0f, propertyBlend));
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_Smoothness"))
+            {
+                float originalSmoothness = originalMaterials[i].GetFloat("_Smoothness");
+                currentBlendedMaterials[i].SetFloat("_Smoothness", Mathf.Lerp(originalSmoothness, 0f, propertyBlend));
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_BaseSmoothnessRemapMax"))
+            {
+                float originalSmoothness = originalMaterials[i].GetFloat("_BaseSmoothnessRemapMax");
+                currentBlendedMaterials[i].SetFloat("_BaseSmoothnessRemapMax", Mathf.Lerp(originalSmoothness, 0f, propertyBlend));
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_SpecColor"))
+            {
+                Color originalSpecColor = originalMaterials[i].GetColor("_SpecColor");
+                currentBlendedMaterials[i].SetColor("_SpecColor", Color.Lerp(originalSpecColor, targetBlack, propertyBlend));
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_SpecularColor"))
+            {
+                Color originalSpecColor = originalMaterials[i].GetColor("_SpecularColor");
+                currentBlendedMaterials[i].SetColor("_SpecularColor", Color.Lerp(originalSpecColor, targetBlack, propertyBlend));
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_EmissionColor"))
+            {
+                if (propertyBlend > 0.5f)
                 {
-                    Color originalColor = originalMaterials[i].GetColor("_BaseColor");
-                    Color targetColor = Color.black;
-                    transitionMaterials[i].SetColor("_BaseColor", Color.Lerp(originalColor, targetColor, t));
+                    currentBlendedMaterials[i].EnableKeyword("_EMISSION");
+                    float emissionStrength = Mathf.Lerp(0f, 10f, (propertyBlend - 0.5f) * 2f);
+                    currentBlendedMaterials[i].SetColor("_EmissionColor", targetBlack * emissionStrength);
+                }
+                else
+                {
+                    Color originalEmission = originalMaterials[i].GetColor("_EmissionColor");
+                    currentBlendedMaterials[i].SetColor("_EmissionColor", Color.Lerp(originalEmission, targetBlack, propertyBlend * 2f));
                 }
             }
-
-            yield return null;
+            
+            if (currentBlendedMaterials[i].HasProperty("_WetSmoothness"))
+            {
+                float originalWetSmoothness = originalMaterials[i].GetFloat("_WetSmoothness");
+                currentBlendedMaterials[i].SetFloat("_WetSmoothness", Mathf.Lerp(originalWetSmoothness, 0f, propertyBlend));
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_WetColor"))
+            {
+                Color originalWetColor = originalMaterials[i].GetColor("_WetColor");
+                currentBlendedMaterials[i].SetColor("_WetColor", Color.Lerp(originalWetColor, targetBlack, propertyBlend));
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_BaseAORemapMax"))
+            {
+                float originalAO = originalMaterials[i].GetFloat("_BaseAORemapMax");
+                currentBlendedMaterials[i].SetFloat("_BaseAORemapMax", Mathf.Lerp(originalAO, 0f, propertyBlend));
+            }
+            
+            if (currentBlendedMaterials[i].HasProperty("_DetailAlbedoScale"))
+            {
+                float originalDetail = originalMaterials[i].GetFloat("_DetailAlbedoScale");
+                currentBlendedMaterials[i].SetFloat("_DetailAlbedoScale", Mathf.Lerp(originalDetail, 0f, propertyBlend));
+            }
         }
-
-        meshRenderer.materials = silhouetteMaterials;
-        currentMaterials = silhouetteMaterials;
-        isSilhouetteActive = true;
     }
 
-    private IEnumerator TransitionToOriginal(float duration)
+    public void RestoreOriginalMaterial()
     {
-        Material[] transitionMaterials = new Material[originalMaterials.Length];
-
-        for (int i = 0; i < originalMaterials.Length; i++)
+        if (!isInitialized || meshRenderer == null || originalMaterials == null)
         {
-            transitionMaterials[i] = new Material(currentMaterials[i]);
-        }
-
-        meshRenderer.materials = transitionMaterials;
-
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-
-            for (int i = 0; i < transitionMaterials.Length; i++)
-            {
-                if (transitionMaterials[i].HasProperty("_BaseColor") && originalMaterials[i].HasProperty("_BaseColor"))
-                {
-                    Color targetColor = originalMaterials[i].GetColor("_BaseColor");
-                    Color currentColor = Color.black;
-                    transitionMaterials[i].SetColor("_BaseColor", Color.Lerp(currentColor, targetColor, t));
-                }
-            }
-
-            yield return null;
+            return;
         }
 
         meshRenderer.materials = originalMaterials;
-        currentMaterials = null;
-        isSilhouetteActive = false;
+        CleanupBlendedMaterials();
+        isInitialized = false;
+    }
+
+    private void CleanupBlendedMaterials()
+    {
+        if (currentBlendedMaterials != null)
+        {
+            foreach (Material mat in currentBlendedMaterials)
+            {
+                if (mat != null)
+                {
+                    Destroy(mat);
+                }
+            }
+            currentBlendedMaterials = null;
+        }
     }
 
     private void OnDestroy()
     {
-        if (transitionCoroutine != null)
-        {
-            StopCoroutine(transitionCoroutine);
-        }
-
-        if (meshRenderer != null && originalMaterials != null && isSilhouetteActive)
+        CleanupBlendedMaterials();
+        
+        if (meshRenderer != null && originalMaterials != null && isInitialized)
         {
             meshRenderer.materials = originalMaterials;
         }

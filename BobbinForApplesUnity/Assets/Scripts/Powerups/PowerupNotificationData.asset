@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b0e49adaae847449a3ec2e879d7f0f, type: 3}
+  m_Name: PowerupNotificationData
+  m_EditorClassIdentifier: Assembly-CSharp::PowerupNotificationData
+  notificationConfigs:
+  - powerupType: 1
+    title: Boost Powerup Collected
+    subtitle: Speed Boost in the direction you are facing. Press F to use
+  - powerupType: 2
+    title: Buster Powerup Collected
+    subtitle: Destroy Obstacles for 4 Seconds. Press F to use
+  - powerupType: 3
+    title: Heavy Weight Collected
+    subtitle: Sink Faster. This is a passive powerup
+  - powerupType: 4
+    title: Freeze Powerup Collected
+    subtitle: Freeze the Bobber for 5 seconds. Press F to use
+  titleFont: {fileID: 11400000, guid: 61a247bc704e9d6478aab75dade95efe, type: 2}
+  titleFontSize: 36
+  titleColor: {r: 1, g: 1, b: 1, a: 1}
+  subtitleFont: {fileID: 11400000, guid: 61a247bc704e9d6478aab75dade95efe, type: 2}
+  subtitleFontSize: 24
+  subtitleColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}

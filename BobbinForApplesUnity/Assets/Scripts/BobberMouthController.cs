@@ -10,6 +10,7 @@ public class BobberMouthController : MonoBehaviour
     [SerializeField] private float timeInAreaToClose = 2f;
     [SerializeField] private float periodicCloseInterval = 5f;
     [SerializeField] private float mouthClosedDuration = 5f;
+    [SerializeField] private float biteAnimationDuration = 1f;
 
     [Header("Bite Area Settings")]
     [SerializeField] private SphereCollider biteAreaCollider;
@@ -21,6 +22,7 @@ public class BobberMouthController : MonoBehaviour
     private float periodicCloseTimer = 0f;
     private float mouthClosedTimer = 0f;
     private bool isPlayerInArea = false;
+    private bool checkingForBite = false;
 
     private void Start()
     {
@@ -94,6 +96,39 @@ public class BobberMouthController : MonoBehaviour
         SetMouthState(false);
 
         Debug.Log($"[BobberMouth] Bite triggered on '{gameObject.name}'. Reason: {reason}");
+
+        if (reason == "Player remained in bite area" && !checkingForBite)
+        {
+            StartCoroutine(CheckForBiteAfterAnimation());
+        }
+    }
+
+    private System.Collections.IEnumerator CheckForBiteAfterAnimation()
+    {
+        checkingForBite = true;
+
+        yield return new WaitForSeconds(biteAnimationDuration);
+
+        if (isPlayerInArea)
+        {
+            Debug.Log($"[BobberMouth] Player still in bite area after animation - triggering death!");
+            
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                PlayerController playerController = player.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.DieFromBobber();
+                }
+            }
+        }
+        else
+        {
+            Debug.Log($"[BobberMouth] Player escaped bite area during animation!");
+        }
+
+        checkingForBite = false;
     }
 
     private void OpenMouth()

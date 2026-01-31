@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Boss_Fight_Music
   m_EditorClassIdentifier: Assembly-CSharp::MusicTrack
   clip: {fileID: 8300000, guid: 35e161ce4bcf6e044818473ff8c69d16, type: 3}
-  volume: 0.533
+  volume: 0.616
   pitch: 1
   description: Intense boss battle music for Area 5

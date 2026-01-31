@@ -64,8 +64,8 @@ public class BossTitleCardUI : MonoBehaviour
     {
         if (MusicManager.Instance != null)
         {
-            MusicManager.Instance.PlayMusic("TitleCard", 2f);
-            Debug.Log("Boss music (TitleCard) triggered with title card!");
+            MusicManager.Instance.PlayMusic("TitleCard", 3f);
+            Debug.Log("Boss music (TitleCard) triggered with title card - layering with intro riser!");
         }
         
         StartCoroutine(IntroSequence());

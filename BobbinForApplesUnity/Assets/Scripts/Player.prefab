@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 5866852415558475337}
   - component: {fileID: 3026209644961932035}
   - component: {fileID: 9172425574328691392}
+  - component: {fileID: 4075454818578549358}
+  - component: {fileID: 7855916803372756445}
+  - component: {fileID: 2101968679931632785}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -143,6 +146,12 @@ MonoBehaviour:
   leftArmLayer: 1
   rightArmLayer: 2
   kickLayer: 3
+  healthUI: {fileID: 0}
+  invincibilityDuration: 1
+  flashSequenceDuration: 0.3
+  shakeIntensity: 0.15
+  shakeDuration: 0.2
+  healFlashDuration: 0.3
 --- !u!54 &3026209644961932035
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -184,6 +193,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DiverBuoyancy
   buoyancyValue: 2
   buoyancyCoefficient: 1
+--- !u!114 &4075454818578549358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190786787784819277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3d0911314ce04488cfdc945153e545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoostPowerupEffect
+  boostForce: 500
+  useVelocityDirection: 0
+--- !u!114 &7855916803372756445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190786787784819277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b4d18430ef381349b3ae5adeab6c624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BusterPowerupEffect
+  effectDuration: 5
+--- !u!114 &2101968679931632785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190786787784819277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9bc424d995925745a71cf0eaf0271ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FreezePowerupEffect
+  effectDuration: 5
+  bobberPrefab: {fileID: 8164278490300343114, guid: fbe7cc38d27edc345ad63a0569e877c9, type: 3}
 --- !u!1 &5136806772757095846
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +274,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5136806772757095846}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}

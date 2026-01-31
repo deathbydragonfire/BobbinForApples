@@ -2,8 +2,14 @@ using UnityEngine;
 
 public class Area4DarknessController : MonoBehaviour
 {
+    [Header("Sonar System")]
+    [SerializeField] private bool useSonarSystem = true;
+    
     [Header("Radial Lighting")]
-    [SerializeField] private bool useRadialLighting = true;
+    [SerializeField] private bool useRadialLighting = false;
+    
+    [Header("Obstacle Reveal")]
+    [SerializeField] private bool useObstacleReveal = false;
     
     [Header("Scene Light Settings")]
     [SerializeField] private float darknessFadeDuration = 1f;
@@ -25,7 +31,11 @@ public class Area4DarknessController : MonoBehaviour
     private Camera mainCamera;
     private DepthBasedWaterEffect depthWaterEffect;
     private RadialLightController radialLightController;
+    private ObstacleProximityReveal obstacleProximityReveal;
+    private Area4SonarManager sonarManager;
     private Coroutine darknessTransitionCoroutine;
+    private bool hasEnteredArea = false;
+    private bool sonarEnabled = false;
 
     private void Awake()
     {
@@ -42,6 +52,24 @@ public class Area4DarknessController : MonoBehaviour
             if (radialLightController == null)
             {
                 radialLightController = gameObject.AddComponent<RadialLightController>();
+            }
+        }
+        
+        if (useObstacleReveal)
+        {
+            obstacleProximityReveal = GetComponent<ObstacleProximityReveal>();
+            if (obstacleProximityReveal == null)
+            {
+                obstacleProximityReveal = gameObject.AddComponent<ObstacleProximityReveal>();
+            }
+        }
+        
+        if (useSonarSystem)
+        {
+            sonarManager = GetComponent<Area4SonarManager>();
+            if (sonarManager == null)
+            {
+                Debug.LogWarning("Area 4: Sonar system enabled but Area4SonarManager component not found!");
             }
         }
         
@@ -79,12 +107,28 @@ public class Area4DarknessController : MonoBehaviour
     {
         if (other.CompareTag(PLAYER_TAG))
         {
+            hasEnteredArea = true;
             DisableSceneLighting();
             
             if (useRadialLighting && radialLightController != null)
             {
                 radialLightController.EnableRadialLight();
             }
+            
+            if (useObstacleReveal && obstacleProximityReveal != null)
+            {
+                obstacleProximityReveal.EnableReveal();
+            }
+        }
+    }
+    
+    public void EnableSonarAfterTransition()
+    {
+        if (useSonarSystem && sonarManager != null && hasEnteredArea && !sonarEnabled)
+        {
+            sonarManager.EnableSonar();
+            sonarEnabled = true;
+            Debug.Log("Area 4: Sonar enabled after transition");
         }
     }
 
@@ -97,6 +141,16 @@ public class Area4DarknessController : MonoBehaviour
             if (useRadialLighting && radialLightController != null)
             {
                 radialLightController.DisableRadialLight();
+            }
+            
+            if (useObstacleReveal && obstacleProximityReveal != null)
+            {
+                obstacleProximityReveal.DisableReveal();
+            }
+            
+            if (useSonarSystem && sonarManager != null)
+            {
+                sonarManager.DisableSonar();
             }
         }
     }
